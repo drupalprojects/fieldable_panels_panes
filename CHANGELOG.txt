@@ -21,6 +21,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2283263 by cboyden, DamienMcKenna: Allow FPP description to be overridden.
 #1588882 by jlapp, mcarbone, DamienMcKenna: Use title as the entity label when
   admin_title isn't present.
+#2246893 by mglaman: Does not properly set pane subtype on content edit form
+  submit.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
