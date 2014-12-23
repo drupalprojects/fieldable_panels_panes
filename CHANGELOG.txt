@@ -24,6 +24,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2246893 by mglaman: Does not properly set pane subtype on content edit form
   submit.
 #2318033 by mongolito404: Increase FPP 'name' field length to 255 characters.
+#2280457 by magicmyth: Entity API support is broken.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
