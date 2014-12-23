@@ -72,6 +72,8 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_render($subty
   $view_mode = isset($conf['view_mode']) ? $conf['view_mode'] : 'full';
   if ($entity && !empty($entity->fpid) && fieldable_panels_panes_access('view', $entity)) {
     $settings = field_bundle_settings('fieldable_panels_pane', $entity->bundle);
+    // Add pane config to the entity object before hook_view().
+    $entity->conf = $conf;
     $block = new stdClass();
     $block->title = '';
     if (empty($settings['extra_fields']['display']) || !empty($settings['extra_fields']['display']['title']['default']['visible'])) {
