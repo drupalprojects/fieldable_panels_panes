@@ -128,14 +128,14 @@ function fieldable_panels_panes_module_implements_alter(&$implementations, $hook
  */
 function fieldable_panels_panes_entity_info_alter(&$info) {
   $old_base_path = 'admin/structure/panels/entity/manage';
-  $new_base_path = 'admin/structure/fieldable-panels-panes/manage';
+  $new_base_path = 'admin/structure/fieldable-panels-panes';
 
   if (is_array($info) && !empty($info)) {
     foreach ($info['fieldable_panels_pane']['bundles'] as $name => &$bundle) {
       if (isset($bundle['admin']['path']) && strpos($bundle['admin']['path'], $old_base_path) !== FALSE) {
         $bundle['admin']['path'] = str_replace($old_base_path, $new_base_path, $bundle['admin']['path']);
         $bundle['admin']['real path'] = str_replace($old_base_path, $new_base_path, $bundle['admin']['real path']);
-        $bundle['admin']['bundle argument'] = $bundle['admin']['bundle argument'] - 1;
+        $bundle['admin']['bundle argument'] = $bundle['admin']['bundle argument'] - 2;
       }
     }
   }

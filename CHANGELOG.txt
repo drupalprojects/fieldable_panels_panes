@@ -26,6 +26,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2318033 by mongolito404: Increase FPP 'name' field length to 255 characters.
 #2280457 by magicmyth: Entity API support is broken.
 #2389873 by mkhamash: Add pane config to the entity object.
+#2233363 by mongolito404: Incorrect paths to some FPP admin pages.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
