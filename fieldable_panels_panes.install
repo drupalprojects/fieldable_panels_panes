@@ -191,7 +191,7 @@ function fieldable_panels_panes_schema() {
       'name' => array(
         'description' => 'The machine-readable name of this type.',
         'type' => 'varchar',
-        'length' => 32,
+        'length' => 255,
         'not null' => TRUE,
         'default' => '',
       ),
@@ -327,7 +327,7 @@ function fieldable_panels_panes_update_7108() {
       'name' => array(
         'description' => 'The machine-readable name of this type.',
         'type' => 'varchar',
-        'length' => 32,
+        'length' => 255,
         'not null' => TRUE,
         'default' => '',
       ),
@@ -393,4 +393,17 @@ function fieldable_panels_panes_update_7108() {
   }
 
   return implode('<br />', $messages);
+}
+
+/**
+ * Update the length of the 'name' field in {fieldable_panels_pane}.
+ */
+function fieldable_panels_panes_update_7109() {
+  db_change_field('fieldable_panels_pane_type', 'name', 'name', array(
+    'description' => 'The machine-readable name of this type.',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => TRUE,
+    'default' => '',
+  ));
 }
