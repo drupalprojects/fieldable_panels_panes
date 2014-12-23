@@ -28,6 +28,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2389873 by mkhamash: Add pane config to the entity object.
 #2233363 by mongolito404: Incorrect paths to some FPP admin pages.
 #2098041 by Placinta: Don't call hook_entity_presave twice in one save process.
+#2092477 by rrrob, DamienMcKenna: Make the pane title use the current view mode.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
