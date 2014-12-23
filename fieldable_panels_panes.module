@@ -41,13 +41,13 @@ function fieldable_panels_panes_entity_info() {
       'id' => 'fpid',
       'revision' => 'vid',
       'bundle' => 'bundle',
-      'label' => 'admin_title',
       'language' => 'language',
       'uuid' => 'uuid',
       'revision uuid' => 'vuuid',
     ),
     'bundles' => $bundles,
     'bundle keys' => array('bundle' => 'name'),
+    'label callback' => 'fieldable_panels_panes_entity_label_callback',
     'view modes' => array(
       // @todo we should support view modes.
       'full' => array(
@@ -1170,5 +1170,20 @@ function fieldable_panels_panes_metadata_fpp_get_properties($entity, array $opti
 function fieldable_panels_panes_form_ctools_export_ui_edit_item_form_alter(&$form, &$form_state, $form_id) {
   if (isset($form_state['plugin']['name']) && $form_state['plugin']['name'] == 'fieldable_panels_pane') {
     $form['info']['description']['#description'] = t('The administrative description of this type. Also used as the icon tooltip when attempting to add an item of this type via the Panels interface.');
+  }
+}
+
+/**
+ * Callback function for the FPP entity label.
+ */
+function fieldable_panels_panes_entity_label_callback($entity, $type) {
+  if (!empty($entity->admin_title)) {
+    return $entity->admin_title;
+  }
+  elseif (!empty($entity->title)) {
+    return $entity->title;
+  }
+  else {
+    return 'fpp__' . $entity->bundle . '_' . $entity->fpid;
   }
 }

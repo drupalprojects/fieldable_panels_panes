@@ -19,6 +19,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2145209 by primozsusa, eft, DamienMcKenna: Support for the Migrate module.
 #2287015 by eft, DamienMcKenna: Missing deletion callback in hook_entity_info.
 #2283263 by cboyden, DamienMcKenna: Allow FPP description to be overridden.
+#1588882 by jlapp, mcarbone, DamienMcKenna: Use title as the entity label when
+  admin_title isn't present.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
