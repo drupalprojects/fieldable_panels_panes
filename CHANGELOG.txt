@@ -32,6 +32,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2398301 by mglaman: Add hook_fieldable_panels_pane_insert/update/save hooks.
 #2302931 by Adrian Richardson, DamienMcKenna: Fixed PanelsPaneController
   ->access().
+#2304921 by plopesc: Normalized the entity output.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
