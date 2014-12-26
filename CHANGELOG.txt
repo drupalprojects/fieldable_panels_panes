@@ -30,6 +30,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2098041 by Placinta: Don't call hook_entity_presave twice in one save process.
 #2092477 by rrrob, DamienMcKenna: Make the pane title use the current view mode.
 #2398301 by mglaman: Add hook_fieldable_panels_pane_insert/update/save hooks.
+#2302931 by Adrian Richardson, DamienMcKenna: Fixed PanelsPaneController
+  ->access().
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07

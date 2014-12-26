@@ -59,7 +59,7 @@ class PanelsPaneController extends DrupalDefaultEntityController {
   }
 
   public function access($op, $entity = NULL, $account = NULL) {
-    if ($op !== 'create' && !$entity) {
+    if ($op !== 'create' && empty($entity)) {
       return FALSE;
     }
 
@@ -68,22 +68,22 @@ class PanelsPaneController extends DrupalDefaultEntityController {
       return TRUE;
     }
 
-    switch ($op) {
-      case 'create':
-        return user_access('create fieldable ' . $entity->bundle);
+    $bundle = is_string($entity) ? $entity : $entity->bundle;
 
-      case 'view':
-        ctools_include('context');
-        return ctools_access($entity->view_access, fieldable_panels_panes_get_base_context($entity));
-
-      case 'update':
-        ctools_include('context');
-        return user_access('edit fieldable ' . $entity->bundle) && ctools_access($entity->edit_access, fieldable_panels_panes_get_base_context($entity));
-
-      case 'delete':
-        ctools_include('context');
-        return user_access('delete fieldable ' . $entity->bundle) && ctools_access($entity->edit_access, fieldable_panels_panes_get_base_context($entity));
-
+    if ($op == 'create') {
+      return user_access('create fieldable ' . $bundle);
+    }
+    elseif ($op == 'view') {
+      ctools_include('context');
+      return ctools_access($entity->view_access, fieldable_panels_panes_get_base_context($entity));
+    }
+    elseif ($op == 'update') {
+      ctools_include('context');
+      return user_access('edit fieldable ' . $bundle) && ctools_access($entity->edit_access, fieldable_panels_panes_get_base_context($entity));
+    }
+    elseif ($op == 'delete') {
+      ctools_include('context');
+      return user_access('delete fieldable ' . $bundle) && ctools_access($entity->edit_access, fieldable_panels_panes_get_base_context($entity));
     }
 
     return FALSE;
