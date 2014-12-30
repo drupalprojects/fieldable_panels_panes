@@ -96,6 +96,11 @@ class PanelsPaneController extends DrupalDefaultEntityController {
 
     $transaction = db_transaction();
 
+    // Load the stored entity, if any.
+    if (!empty($entity->fpid) && !isset($entity->original)) {
+      $entity->original = entity_load_unchanged('fieldable_panels_pane', $entity->fpid);
+    }
+
     // Set the timestamp fields.
     if (empty($entity->created)) {
       $entity->created = REQUEST_TIME;

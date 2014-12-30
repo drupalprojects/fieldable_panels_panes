@@ -36,6 +36,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2244541 by DamienMcKenna: The default FPP type can be skipped during
   installation by assigning a variable, see README.txt for details.
 #2398759 by mglaman: Documented some basic CRUD APIs.
+#2399623 by mglaman: Include original entity when saving an FPP.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
