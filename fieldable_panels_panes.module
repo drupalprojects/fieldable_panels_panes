@@ -142,6 +142,23 @@ function fieldable_panels_panes_entity_info_alter(&$info) {
 }
 
 /**
+ * Implements hook_hook_info().
+ */
+function fieldable_panels_panes_hook_info() {
+  $defaults = array(
+    'group' => 'fieldable_panels_panes',
+  );
+  $hooks = array(
+    'fieldable_panels_pane_delete' => $defaults,
+    'fieldable_panels_pane_insert' => $defaults,
+    'fieldable_panels_pane_presave' => $defaults,
+    'fieldable_panels_pane_update' => $defaults,
+    'fieldable_panels_pane_view' => $defaults,
+  );
+  return $hooks;
+}
+
+/**
  * Implements hook_field_extra_fields().
  */
 function fieldable_panels_panes_field_extra_fields() {
