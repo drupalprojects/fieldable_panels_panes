@@ -246,7 +246,8 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     // Remove previously built content, if exists.
     $entity->content = array();
 
-    // Allow modules to change the view mode.
+    // Allow modules to change the view mode, trigger
+    // hook_entity_view_mode_alter().
     $context = array(
       'entity_type' => 'fieldable_panels_pane',
       'entity' => $entity,
