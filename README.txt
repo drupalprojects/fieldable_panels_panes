@@ -35,3 +35,10 @@ Installation notes
 By default a Fieldable Panels Pane type called "Panels pane" will be created. To
 skip this, set the variable "fieldable_panels_panes_skip_default_type" to TRUE
 prior to installing the module.
+
+
+A note about view modes
+-----------------------
+When viewing an FPP object on its own page, e.g.
+admin/structure/fieldable-panels-panes/view/1, the 'preview' view mode will be
+used if it has been customized, otherwise it defaults to 'default'.
