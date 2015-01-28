@@ -751,7 +751,7 @@ function template_preprocess_fieldable_panels_pane(&$vars) {
  */
 function fieldable_panels_panes_preprocess_panels_pane(&$vars) {
   if ($vars['pane']->type == 'fieldable_panels_pane') {
-    if ($entity = fieldable_panels_panes_load_entity($vars['pane']->subtype)) {
+    if ($entity = $vars['pane']->configuration['fieldable_panels_pane']) {
       if ($entity->link && !empty($vars['title'])) {
         $vars['title'] = l($vars['title'], $entity->path);
       }

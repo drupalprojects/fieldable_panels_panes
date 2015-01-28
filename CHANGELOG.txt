@@ -40,6 +40,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 By DamienMcKenna: Document when hook_entity_view_mode_alter() is triggered.
 #2256503 by DamienMcKenna, dsnopek: Title field logic improved, new 'preview'
   view mode used by default on standalone entity page.
+#2415427 by dsnopek: Avoid loading FPP from database in
+  fieldable_panels_panes_preprocess_panels_pane().
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
