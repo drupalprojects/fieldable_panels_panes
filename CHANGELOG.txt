@@ -43,6 +43,7 @@ By DamienMcKenna: Document when hook_entity_view_mode_alter() is triggered.
 #2415427 by dsnopek: Avoid loading FPP from database in
   fieldable_panels_panes_preprocess_panels_pane().
 #2415427 by dsnopek: Follow-up on last commit.
+#2390145 by mrmikedewolf: Add default access callback for admin views.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
