@@ -44,6 +44,7 @@ By DamienMcKenna: Document when hook_entity_view_mode_alter() is triggered.
   fieldable_panels_panes_preprocess_panels_pane().
 #2415427 by dsnopek: Follow-up on last commit.
 #2390145 by mrmikedewolf: Add default access callback for admin views.
+#2416001 by DamienMcKenna: Requires the latest releases of CTools and Panels.
 
 
 Fieldable Panels Panes 7.x-1.5, 2013-05-07
