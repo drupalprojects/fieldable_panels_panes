@@ -677,7 +677,7 @@ function fieldable_panels_panes_ctools_plugin_directory($owner, $plugin_type) {
 function fieldable_panels_panes_ctools_access_get($argument) {
   list($op, $fpid) = explode(':', $argument);
   $entity = fieldable_panels_panes_load($fpid);
-  if (!$entity || !fieldable_panels_panes_access('update', $entity)) {
+  if (empty($entity) || !fieldable_panels_panes_access('update', $entity)) {
     return;
   }
 
@@ -699,7 +699,7 @@ function fieldable_panels_panes_ctools_access_get($argument) {
 function fieldable_panels_panes_ctools_access_set($argument, $access) {
   list($op, $fpid) = explode(':', $argument);
   $entity = fieldable_panels_panes_load($fpid);
-  if (!$entity || !fieldable_panels_panes_access('update', $entity)) {
+  if (empty($entity) || !fieldable_panels_panes_access('update', $entity)) {
     return;
   }
 
@@ -713,7 +713,7 @@ function fieldable_panels_panes_ctools_access_set($argument, $access) {
 function fieldable_panels_panes_ctools_access_clear($argument) {
   list($op, $fpid) = explode(':', $argument);
   $entity = fieldable_panels_panes_load($fpid);
-  if (!$entity || !fieldable_panels_panes_access('update', $entity)) {
+  if (empty($entity) || !fieldable_panels_panes_access('update', $entity)) {
     return;
   }
 
@@ -759,7 +759,7 @@ function fieldable_panels_panes_preprocess_panels_pane(&$vars) {
   if ($vars['pane']->type == 'fieldable_panels_pane') {
     if (!empty($vars['content']['#fieldable_panels_pane']) && is_object($vars['content']['#fieldable_panels_pane'])) {
       $entity = $vars['content']['#fieldable_panels_pane'];
-      if ($entity->link && !empty($vars['title'])) {
+      if (isset($entity->link) && !empty($vars['title'])) {
         $vars['title'] = l($vars['title'], $entity->path);
       }
       ctools_include('cleanstring');
@@ -793,9 +793,7 @@ function fieldable_panels_panes_load($fpid, $vid = NULL) {
   $conditions = (isset($vid) ? array('vid' => $vid) : array());
 
   $entities = fieldable_panels_panes_load_multiple(array($fpid), $conditions);
-  if ($entities) {
-    return reset($entities);
-  }
+  return !empty($entities) ? reset($entities) : FALSE;
 }
 
 /**
@@ -838,7 +836,7 @@ function fieldable_panels_panes_delete_revision($fpid, $vid) {
   if ($revision = fieldable_panels_panes_load($fpid, $vid)) {
     // Prevent deleting the current revision.
     $entity = fieldable_panels_panes_load($revision->fpid);
-    if ($vid == $entity->vid) {
+    if (empty($entity) || empty($entity->vid)) {
       return FALSE;
     }
 

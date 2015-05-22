@@ -40,7 +40,7 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_content_type(
   }
   else {
     $entity = fieldable_panels_panes_load_entity($subtype_name);
-    if ($entity) {
+    if (!empty($entity)) {
       return _fieldable_panels_panes_custom_content_type($entity);
     }
   }
@@ -53,11 +53,13 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_content_types
   $types = _fieldable_panels_panes_default_content_type();
 
   $ids = db_query('SELECT fpid FROM {fieldable_panels_panes} WHERE reusable = 1')->fetchCol();
-  if ($ids) {
+  if (!empty($ids)) {
     $entities = fieldable_panels_panes_load_multiple($ids);
-    foreach ($entities as $entity) {
-      $subtype = _fieldable_panels_panes_custom_content_type($entity);
-      $types[$subtype['name']] = $subtype;
+    if (!empty($entities)) {
+      foreach ($entities as $entity) {
+        $subtype = _fieldable_panels_panes_custom_content_type($entity);
+        $types[$subtype['name']] = $subtype;
+      }
     }
   }
 
@@ -69,8 +71,8 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_content_types
  */
 function fieldable_panels_panes_fieldable_panels_pane_content_type_render($subtype, $conf, $panel_args = array(), $context = array()) {
   $entity = fieldable_panels_panes_load_entity($subtype);
-  $view_mode = isset($conf['view_mode']) ? $conf['view_mode'] : 'full';
-  if ($entity && !empty($entity->fpid) && fieldable_panels_panes_access('view', $entity)) {
+  if (!empty($entity) && !empty($entity->fpid) && fieldable_panels_panes_access('view', $entity)) {
+    $view_mode = isset($conf['view_mode']) ? $conf['view_mode'] : 'full';
     $settings = field_bundle_settings('fieldable_panels_pane', $entity->bundle);
     // Add pane config to the entity object before hook_view().
     $entity->conf = $conf;
@@ -106,11 +108,11 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_render($subty
 function fieldable_panels_panes_fieldable_panels_pane_content_type_admin_title($subtype, $conf) {
   $entity = fieldable_panels_panes_load_entity($subtype);
 
-  $output = t('Deleted/removed entity pane');
-  if (isset($entity) && is_object($entity)) {
-    $title = !empty($entity->admin_title) ? $entity->admin_title : (!empty($entity->title) ? $entity->title : t('No title'));
-
-    $output = $title;
+  if (!empty($entity) && is_object($entity)) {
+    $output = !empty($entity->admin_title) ? $entity->admin_title : (!empty($entity->title) ? $entity->title : t('No title'));
+  }
+  else {
+    $output = t('Deleted/removed entity pane');
   }
 
   return $output;
@@ -128,16 +130,15 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_admin_info($s
  */
 function fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form($form, &$form_state) {
   $conf = &$form_state['conf'];
-  $subtype_name = $form_state['subtype_name'];
 
   if (!isset($form_state['entity'])) {
-    $form_state['entity'] = fieldable_panels_panes_load_entity($subtype_name);
+    $form_state['entity'] = fieldable_panels_panes_load_entity($form_state['subtype_name']);
   }
   $entity = $form_state['entity'];
 
-  // It's possible that we have a reference to an entity that is no longer valid.
-  // If so, bail, because otherwise field API will whitescreen.
-  if (!$entity) {
+  // It's possible that we have a reference to an entity that is no longer
+  // valid. If so, bail, because otherwise field API will whitescreen.
+  if (empty($entity)) {
     $form['error'] = array(
       '#markup' => t('The pane entity referenced does not appear to be valid. It was probably deleted and you should remove this pane.'),
     );
