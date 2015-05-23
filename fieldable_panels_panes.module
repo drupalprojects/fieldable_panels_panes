@@ -1232,14 +1232,14 @@ function fieldable_panels_panes_entity_label_callback($entity, $type) {
   // Then, the bundle label with FPID.
   $info = entity_get_info($type);
   if (!empty($info['bundles'][$entity->bundle]['label'])) {
-    return t('@label (fpid: @fpid)', array(
+    return t('@label (id: @fpid)', array(
       '@label' => $info['bundles'][$entity->bundle]['label'],
       '@fpid' => $entity->fpid,
     ));
   }
 
   // Finally, the ultimate fallback: the entity name with bundle and FPID.
-  return t('@label (bundle: @bundle, fpid: @fpid)', array(
+  return t('@label (type: @bundle, id: @fpid)', array(
     // FYI, we use $info['label'] rather than the literal string in case it was
     // translated.
     '@label' => $info['label'],
