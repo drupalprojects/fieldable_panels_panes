@@ -759,7 +759,7 @@ function fieldable_panels_panes_preprocess_panels_pane(&$vars) {
   if ($vars['pane']->type == 'fieldable_panels_pane') {
     if (!empty($vars['content']['#fieldable_panels_pane']) && is_object($vars['content']['#fieldable_panels_pane'])) {
       $entity = $vars['content']['#fieldable_panels_pane'];
-      if (isset($entity->link) && !empty($vars['title'])) {
+      if (!empty($entity->link) && !empty($vars['title'])) {
         $vars['title'] = l($vars['title'], $entity->path);
       }
       ctools_include('cleanstring');
