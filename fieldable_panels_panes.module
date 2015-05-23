@@ -49,6 +49,7 @@ function fieldable_panels_panes_entity_info() {
     'bundles' => $bundles,
     'bundle keys' => array('bundle' => 'name'),
     'label callback' => 'fieldable_panels_panes_entity_label_callback',
+    'uri callback' => 'fieldable_panels_panes_entity_uri_callback',
     'view modes' => array(
       // @todo we should support view modes.
       'full' => array(
@@ -1218,13 +1219,41 @@ function fieldable_panels_panes_form_ctools_export_ui_edit_item_form_alter(&$for
  * Callback function for the FPP entity label.
  */
 function fieldable_panels_panes_entity_label_callback($entity, $type) {
+  // First, try the real label.
   if (!empty($entity->admin_title)) {
     return $entity->admin_title;
   }
-  elseif (!empty($entity->title)) {
+
+  // Then, the user visible title.
+  if (!empty($entity->title)) {
     return $entity->title;
   }
-  else {
-    return 'fpp__' . $entity->bundle . '_' . $entity->fpid;
+
+  // Then, the bundle label with FPID.
+  $info = entity_get_info($type);
+  if (!empty($info['bundles'][$entity->bundle]['label'])) {
+    return t('@label (fpid: @fpid)', array(
+      '@label' => $info['bundles'][$entity->bundle]['label'],
+      '@fpid' => $entity->fpid,
+    ));
   }
+
+  // Finally, the ultimate fallback: the entity name with bundle and FPID.
+  return t('@label (bundle: @bundle, fpid: @fpid)', array(
+    // FYI, we use $info['label'] rather than the literal string in case it was
+    // translated.
+    '@label' => $info['label'],
+    '@bundle' => $entity->bundle,
+    '@fpid' => $entity->fpid,
+  ));
+}
+
+/**
+ * Callback function for the FPP entity uri.
+ */
+function fieldable_panels_panes_entity_uri_callback($entity) {
+  return array(
+    'path' => 'admin/structure/fieldable-panels-panes/view/' . $entity->fpid,
+    'options' => array(),
+  );
 }

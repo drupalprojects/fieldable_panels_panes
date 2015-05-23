@@ -5,6 +5,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2457995 by B-Prod: Fixed compatibility with the Title module.
 #1985894 by DamienMcKenna, tanc: Return FALSE in load function if no entities.
 #2493749 by dsnopek: FPP title always shown as link, even if not requested!
+#2483335 by dsnopek: Improved label in File Entity file usage report.
 
 
 Fieldable Panels Panes 7.x-1.6-beta1, 2015-02-02
