@@ -1,5 +1,5 @@
-Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
-----------------------------------------------
+Fieldable Panels Panes 7.x-1.6, 2015-05-29
+------------------------------------------
 #2427275 by DamienMcKenna: Fixed line_entity_form integration.
 #2463965 by dsnopek: PHP notice when FPP is hidden via visibility rules.
 #2457995 by B-Prod: Fixed compatibility with the Title module.
