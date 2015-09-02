@@ -1,5 +1,7 @@
 Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 ----------------------------------------------
+By Chris Burges, dsnopek, DamienMcKenna: Added "check editable" callback for
+  CTools pane definition, refactored FPP object loading.
 
 
 Fieldable Panels Panes 7.x-1.6, 2015-05-29
