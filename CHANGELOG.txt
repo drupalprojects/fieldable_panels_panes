@@ -30,7 +30,7 @@ Fieldable Panels Panes 7.x-1.6-beta1, 2015-02-02
   (https://drupal.org/node/2146479).
 #2074735 by rogical: Added configure link to admin/structure/fieldable-panels
   -panes in the info file.
-#2250383 by DamienMcKenna: Require CToosl 1.4 or newer.
+#2250383 by DamienMcKenna: Require CTools 1.4 or newer.
 #2145209 by primozsusa, eft, DamienMcKenna: Support for the Migrate module.
 #2287015 by eft, DamienMcKenna: Missing deletion callback in hook_entity_info.
 #2283263 by cboyden, DamienMcKenna: Allow FPP description to be overridden.
