@@ -103,6 +103,9 @@ function fieldable_panels_panes_entity_info() {
         ),
       ),
     ),
+
+    // Disable support for the Redirect module.
+    'redirect' => FALSE,
   );
 
   // Optional support for the entitycache module.
