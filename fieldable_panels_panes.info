@@ -33,3 +33,7 @@ files[] = fieldable_panels_panes.info.inc
 
 ; Inline Entity Form integration.
 files[] = includes/FieldablePanelsPaneInlineEntityFormController.class.php
+
+; Tests.
+files[] = tests/fpp.helper.test
+files[] = tests/fpp.permissions.test

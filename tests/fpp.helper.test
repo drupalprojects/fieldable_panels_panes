@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * A base class for the Fieldable Panels Panes tests, provides shared methods.
+ */
+
+class FppTestHelper extends DrupalWebTestCase {
+  /**
+   * Admin user.
+   *
+   * @var \StdClass
+   */
+  protected $adminUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  function setUp(array $modules = array()) {
+    $modules[] = 'fieldable_panels_panes';
+    parent::setUp($modules);
+  }
+
+}
