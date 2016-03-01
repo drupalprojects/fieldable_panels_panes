@@ -21,6 +21,7 @@ function fieldable_panels_panes_entity_info() {
   foreach (ctools_export_crud_load_all('fieldable_panels_pane_type') as $type) {
     $bundles[$type->name] = array(
       'label' => $type->title,
+      'description' => $type->description,
       'admin' => array(
         'path' => 'admin/structure/fieldable-panels-panes/%fieldable_panels_pane_type',
         'bundle argument' => 3,
