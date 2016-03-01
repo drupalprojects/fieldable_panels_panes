@@ -59,24 +59,41 @@ class FppPermissionsTest extends FppTestHelper {
     // Test the default FPP type.
     $this->drupalGet('admin/structure/fieldable-panels-panes/' . $this->bundle . '/list');
     $this->assertResponse(200, 'Loaded the List page for the default FPP type.');
-
-    $this->drupalGet('admin/structure/fieldable-panels-panes/' . $this->bundle . '/add');
-    $this->assertResponse(200, 'Loaded the Add page for the default FPP type.');
+    $this->assertText(t('There are currently no entities of this type.'));
 
     $this->drupalGet('admin/structure/fieldable-panels-panes/' . $this->bundle . '/edit');
     $this->assertResponse(200, 'Loaded the Edit page for the default FPP type.');
+    $this->assertFieldByName('title');
+    $this->assertFieldByName('description');
+
+    $this->drupalGet('admin/structure/fieldable-panels-panes/' . $this->bundle . '/add');
+    $this->assertResponse(200, 'Loaded the Add page for the default FPP type.');
+    $this->assertFieldByName('title');
 
     $this->drupalGet('admin/structure/fieldable-panels-panes/' . $this->bundle . '/delete');
     $this->assertResponse(200, 'Loaded the Delete page for the default FPP type.');
+    $this->assertText(t('This action will permanently remove this item from your database..'));
 
     $this->drupalGet('admin/structure/fieldable-panels-panes/' . $this->bundle . '/export');
     $this->assertResponse(200, 'Loaded the Export page for the default FPP type.');
+    $this->assertFieldByName('code');
 
     $this->drupalGet('admin/structure/fieldable-panels-panes/' . $this->bundle . '/fields');
     $this->assertResponse(200, 'Loaded the Manage Fields page for the default FPP type.');
+    $this->assertText(t('The displayed title of the entity.'));
 
     $this->drupalGet('admin/structure/fieldable-panels-panes/' . $this->bundle . '/display');
     $this->assertResponse(200, 'Loaded the Manage Display page for the default FPP type.');
+    $this->assertText(t('Use custom display settings for the following view modes'));
+
+    // These two paths don't exist.
+    $this->drupalGet('admin/structure/fieldable-panels-panes/manage/' . $this->bundle . '/fields');
+    $this->assertResponse(200);
+    $this->assertText(t('There are currently no entities of this type.'), 'The old(?) FPP manage fields URL no longer works.');
+
+    $this->drupalGet('admin/structure/fieldable-panels-panes/manage/' . $this->bundle . '/display');
+    $this->assertResponse(200);
+    $this->assertText(t('There are currently no entities of this type.'), 'The old(?) FPP manage display URL no longer works.');
   }
 
   /**

@@ -8,6 +8,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2678696 by DamienMcKenna: Devel added as a test dependency.
 #2531038 by DamienMcKenna: Noted related modules in the README.txt.
 #2618904 by milodesc: Fixed URLs to field/display pages in the README.txt.
+#2233363 by DamienMcKenna: Added more test assertions to show that the admin
+  paths are correct.
 
 
 Fieldable Panels Panes 7.x-1.7, 2015-09-02
