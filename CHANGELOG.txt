@@ -10,6 +10,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2618904 by milodesc: Fixed URLs to field/display pages in the README.txt.
 #2233363 by DamienMcKenna: Added more test assertions to show that the admin
   paths are correct.
+#2562717 by dsnopek, cboyden: Resuable FPPs with no admin title did not have a
+  label in the CTools 'Add Content' dialog.
 
 
 Fieldable Panels Panes 7.x-1.7, 2015-09-02
