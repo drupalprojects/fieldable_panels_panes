@@ -42,3 +42,17 @@ A note about view modes
 When viewing an FPP object on its own page, e.g.
 admin/structure/fieldable-panels-panes/view/1, the 'preview' view mode will be
 used if it has been customized, otherwise it defaults to 'default'.
+
+
+Related modules
+--------------------------------------------------------------------------------
+* Organic Groups Fieldable Panels Panes
+  https://www.drupal.org/project/og_fpp
+  This is a bridge module to ease simultaneous usage of Organic Groups,
+  Fieldable Panels Panes and Panelizer.
+* Entity cache
+  https://www.drupal.org/project/entitycache
+  FPP provides support for using the entity cache module.
+* Panels Cache Expiration
+  https://www.drupal.org/project/expire_panels
+  Trigger cache expiration of other objects when FPPs are changed.
