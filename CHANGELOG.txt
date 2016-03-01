@@ -5,6 +5,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
   listing FPPs.
 #2416065 by DamienMcKenna: Added a bunch of tests to confirm permissions work
   correctly.
+#2678696 by DamienMcKenna: Devel added as a test dependency.
 
 
 Fieldable Panels Panes 7.x-1.7, 2015-09-02
