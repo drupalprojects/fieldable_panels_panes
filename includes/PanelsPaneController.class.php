@@ -152,7 +152,7 @@ class PanelsPaneController extends DrupalDefaultEntityController {
           ->execute();
 
         field_attach_insert('fieldable_panels_pane', $entity);
-        module_invoke_all('fieldable_panels_pane_insert');
+        module_invoke_all('fieldable_panels_pane_insert', $entity);
         module_invoke_all('entity_insert', $entity, 'fieldable_panels_pane');
       }
 

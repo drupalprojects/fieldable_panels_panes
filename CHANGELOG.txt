@@ -13,6 +13,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2562717 by dsnopek, cboyden: Resuable FPPs with no admin title did not have a
   label in the CTools 'Add Content' dialog.
 #2614888 by joelstein: Use bundle description as plugin description.
+#2571981 by dgtlmoon: hook_fieldable_panels_pane_insert() was missing the
+  entity argument.
 
 
 Fieldable Panels Panes 7.x-1.7, 2015-09-02
