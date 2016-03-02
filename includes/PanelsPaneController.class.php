@@ -116,7 +116,11 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     $entity->changed = REQUEST_TIME;
 
     field_attach_presave('fieldable_panels_pane', $entity);
+
+    // Trigger hook_fieldable_panels_pane_presave().
     module_invoke_all('fieldable_panels_pane_presave', $entity);
+
+    // Trigger hook_entity_presave_update().
     module_invoke_all('entity_presave', $entity, 'fieldable_panels_pane');
 
     // When saving a new entity revision, unset any existing $entity->vid
@@ -286,8 +290,9 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     entity_prepare_view('fieldable_panels_pane', array($entity->fpid => $entity), $langcode);
     $entity->content += field_attach_view('fieldable_panels_pane', $entity, $view_mode, $langcode);
 
-    // Allow modules to make their own additions to the entity.
+    // Trigger hook_fieldable_panels_pane_view().
     module_invoke_all('fieldable_panels_pane_view', $entity, $view_mode, $langcode);
+    // Trigger hook_entity_view().
     module_invoke_all('entity_view', $entity, 'fieldable_panels_pane', $view_mode, $langcode);
 
     // Make sure the current view mode is stored if no module has already
@@ -303,8 +308,9 @@ class PanelsPaneController extends DrupalDefaultEntityController {
       if (!empty($entities)) {
         try {
           foreach ($entities as $fpid => $entity) {
-            // Call the entity-specific callback (if any):
+            // Trigger hook_fieldable_panels_pane_delete().
             module_invoke_all('fieldable_panels_pane_delete', $entity);
+            // Trigger hook_entity_delete().
             module_invoke_all('entity_delete', $entity, 'fieldable_panels_pane');
             field_attach_delete('fieldable_panels_pane', $entity);
           }
