@@ -38,3 +38,4 @@ files[] = includes/FieldablePanelsPaneInlineEntityFormController.class.php
 test_dependencies[] = devel
 files[] = tests/fpp.helper.test
 files[] = tests/fpp.permissions.test
+files[] = tests/fpp.file_access.test
