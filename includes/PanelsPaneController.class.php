@@ -168,6 +168,9 @@ class PanelsPaneController extends DrupalDefaultEntityController {
         module_invoke_all('entity_insert', $entity, 'fieldable_panels_pane');
       }
 
+      // Clear the appropriate caches for this object.
+      entity_get_controller('fieldable_panels_pane')->resetCache(array($entity->fpid));
+
       return $entity;
     }
     catch (Exception $e) {
