@@ -2,6 +2,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 ----------------------------------------------
 #2487888 by coenvanvliet, DamienMcKenna, joelstein: Clear an object's cache
   after it is saved or updated.
+#1910934 by jlapp, thrnio, Chris Burge, MiroslavBanov: Allow all FPP objects to
+  be used as blocks, controllable from the new settings page.
 
 
 Fieldable Panels Panes 7.x-1.8, 2016-03-02

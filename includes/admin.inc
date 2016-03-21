@@ -6,6 +6,55 @@
  */
 
 /**
+ * Page callback for settings page.
+ */
+function fieldable_panels_panes_settings() {
+  // Get array of all FPP bundles.
+  $bundles = fieldable_panels_panes_get_bundle_labels();
+
+  $form = array();
+  $form['fpp_blocks_expose'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Make fieldable panels panes available as blocks'),
+    '#description' => t('Fieldable panels panes that are resuable will be made available as blocks.'),
+    '#default_value' => variable_get('fpp_blocks_expose', FALSE),
+  );
+  $form['bundles'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('FPP Types Exposed as Blocks'),
+    '#description' => t('Select FPP types to be exposed as blocks. If none is selected, then all FPP types will be exposed as blocks.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="fpp_blocks_expose"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+  // Render checkbox for each FPP bundle if any FPP bundles exist.
+  if (!empty($bundles)) {
+    foreach ($bundles as $bundle => $info) {
+      $form['bundles']['fpp_expose_' . $bundle] = array(
+        '#type' => 'checkbox',
+        '#title' => $info . ' (' . $bundle . ')',
+        '#default_value' => variable_get('fpp_expose_' . $bundle, FALSE),
+      );
+    }
+  }
+
+  // Remove fieldset description and add markup if no FPP bundles exist.
+  else {
+    $form['bundles']['empty'] = array(
+      '#markup' => t('<p>No FPP types exist.</p>'),
+    );
+    $form['bundles']['#description'] = NULL;
+  }
+
+  return system_settings_form($form);
+}
+
+/**
  * List all entities for the given type.
  */
 function fieldable_panels_panes_entities_list_page($type) {

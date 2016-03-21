@@ -31,6 +31,13 @@ function fieldable_panels_panes_uninstall() {
 
   // Variables.
   variable_del('fieldable_panels_panes_skip_default_type');
+  variable_del('fpp_blocks_expose');
+
+  // Delete any variables that begin with 'fpp_expose_'.
+  $results = db_query('SELECT name FROM {variable} WHERE name LIKE :var', array(':var' => 'fpp_expose_%'))->fetchCol();
+  foreach ($results as $var) {
+    variable_del($var);
+  }
 }
 
 /**
@@ -412,4 +419,11 @@ function fieldable_panels_panes_update_7109() {
     'not null' => TRUE,
     'default' => '',
   ));
+}
+
+/**
+ * Clear the menu cache to pick up the new settings page.
+ */
+function fieldable_panels_panes_update_7110() {
+  variable_set('menu_rebuild_needed', TRUE);
 }

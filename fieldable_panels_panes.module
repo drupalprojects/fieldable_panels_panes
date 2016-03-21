@@ -436,6 +436,14 @@ function fieldable_panels_panes_menu() {
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
   ) + $base;
 
+  // Settings.
+  $items['admin/structure/fieldable-panels-panes/settings'] = array(
+    'title' => 'Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fieldable_panels_panes_settings'),
+    'type' => MENU_LOCAL_TASK,
+  ) + $base;
+
   return $items;
 }
 
@@ -820,6 +828,81 @@ function fieldable_panels_panes_views_api() {
     'api' => 2,
     'path' => drupal_get_path('module', 'fieldable_panels_panes') . '/plugins/views',
   );
+}
+
+// -------------------------------------------------------------------------
+// Block hooks.
+
+/**
+ * Implements hook_block_info().
+ */
+function fieldable_panels_panes_block_info() {
+  $blocks = array();
+  // Get array of exposed FPP bundles.
+  $bundles = fieldable_panels_panes_exposed_bundles();
+
+  if (variable_get('fpp_blocks_expose', FALSE) == TRUE) {
+    // Get all reusable entities if $bundles array is empty.
+    if (empty($bundles)) {
+      $ids = db_query('SELECT fpid FROM {fieldable_panels_panes} WHERE reusable = 1')->fetchCol();
+    }
+    // Get reusable entities of selected FPP bundles if $bundles array is not
+    // empty.
+    else {
+      $ids = array();
+      foreach ($bundles as $bundle => $info) {
+        $bundle_ids = db_query('SELECT fpid FROM {fieldable_panels_panes} WHERE reusable = 1 AND bundle = :bundle', array(':bundle' => $bundle))->fetchCol();
+        $ids = array_merge($ids, $bundle_ids);
+      }
+    }
+    $entities = fieldable_panels_panes_load_multiple($ids);
+    foreach ($entities as $entity) {
+      $blocks[$entity->fpid]['info'] = 'FPP (' . $entity->bundle . '): ' . entity_label('fieldable_panels_pane', $entity);
+    }
+  }
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function fieldable_panels_panes_block_view($delta = '') {
+  $block = array();
+  // Get array of exposed FPP bundles.
+  $bundles = fieldable_panels_panes_exposed_bundles();
+
+  if (variable_get('fpp_blocks_expose', FALSE) == TRUE) {
+    $entity = fieldable_panels_panes_load($delta);
+    $bundle = $entity->bundle;
+
+    $block['subject'] = '';
+    $block['content'] = '';
+
+    // Render block if its FPP bundle is exposed and block is reusable.
+    if ((array_key_exists($bundle, $bundles) || empty($bundles)) && $entity->reusable == TRUE) {
+      $content = fieldable_panels_panes_view($entity);
+      $block['subject'] = check_plain($entity->title);
+      $block['content'] = $content;
+    }
+  }
+  return $block;
+}
+
+/**
+ * Return array of FPP bundles exposed as blocks.
+ */
+function fieldable_panels_panes_exposed_bundles() {
+  // Get array of all FPP bundles and unset bundles not exposed as blocks.
+  $bundles = fieldable_panels_panes_get_bundle_labels();
+
+  foreach ($bundles as $bundle => $info) {
+    $expose = variable_get('fpp_expose_' . $bundle, FALSE);
+    if ($expose == FALSE) {
+      unset($bundles[$bundle]);
+    }
+  }
+  return $bundles;
 }
 
 // -------------------------------------------------------------------------
