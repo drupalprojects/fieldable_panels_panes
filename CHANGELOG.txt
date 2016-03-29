@@ -5,9 +5,9 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #1910934 by jlapp, thrnio, Chris Burge, MiroslavBanov: Allow all FPP objects to
   be used as blocks, controllable from the new settings page.
 #1986334 by David_Rothstein, grndlvl, EclipseGc, ruloweb, vilepickle, heddn,
-  MiroslavBanov, brantwynn, mairi, danieltome, azinck, DamienMcKenna: Optionally
-  allow each FPP pane to be referenced by revision ID, allowing for editorial
-  workflows when used with Panelizer.
+  MiroslavBanov, brantwynn, mairi, danieltome, azinck, DamienMcKenna, slucero:
+  Optionally allow each FPP pane to be referenced by revision ID, allowing for
+  editorial workflows when used with Panelizer.
 
 
 Fieldable Panels Panes 7.x-1.8, 2016-03-02
