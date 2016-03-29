@@ -255,18 +255,45 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form_sub
 
   fieldable_panels_panes_entity_edit_form_submit($form, $form_state);
 
-  // Sub type is not explicitly set, define it here.
-  if (module_exists('uuid') && isset($entity->uuid)) {
-    $entity_id = 'uuid:' . $entity->uuid;
+  // Determine how to handle revision locking.
+  $revision_context_aware = fieldable_panels_panes_revision_is_lockable($entity);
+
+  // If this is a new entity entity, or revision locking is enabled, look for a
+  // specific ID to use.
+  if (!empty($entity->is_new) || $revision_context_aware) {
+    // If UUID is available, use it.
+    if (module_exists('uuid') && isset($entity->uuid)) {
+      if ($revision_context_aware) {
+        $subtype = 'vuuid:' . $entity->vuuid;
+      }
+      else {
+        $subtype = 'uuid:' . $entity->uuid;
+      }
+    }
+
+    // Otherwise use the native ID values.
+    else {
+      if ($revision_context_aware) {
+        $subtype = 'vid:' . $entity->vid;
+      }
+      else {
+        $subtype = 'fpid:' . $entity->fpid;
+      }
+    }
   }
+
+  // The 'current' key will tell FPP to load up the current revision. This
+  // bypasses the entity cache on the FPP entity class and loads the revision
+  // that was just saved instead of the previous revision. This is only really
+  // relevant in Panels IPE administration or similar circumstances.
   else {
-    $entity_id = 'fpid:' . $entity->fpid;
+    $subtype = 'current:' . $entity->fpid;
   }
 
   // @todo: This won't work if $form_state does not contain 'pane' which could
   // theoretically happen in a non-Panels use case. Not that anybody uses this
   // outside of Panels.
-  $form_state['pane']->subtype = $entity_id;
+  $form_state['pane']->subtype = $subtype;
 }
 
 /**
@@ -319,11 +346,27 @@ function _fieldable_panels_panes_custom_content_type($entity) {
     'icon' => 'icon_block_custom.png',
   );
 
+  // Determine how to handle revision locking.
+  $revision_context_aware = fieldable_panels_panes_revision_is_lockable($entity);
+
+  // If UUID is available, use it.
   if (module_exists('uuid') && isset($entity->uuid)) {
-    $info['name'] = 'uuid:' . $entity->uuid;
+    if ($revision_context_aware) {
+      $info['name'] = 'vuuid:' . $entity->vuuid;
+    }
+    else {
+      $info['name'] = 'uuid:' . $entity->uuid;
+    }
   }
+
+  // Otherwise use the native ID values.
   else {
-    $info['name'] = 'fpid:' . $entity->fpid;
+    if ($revision_context_aware) {
+      $info['name'] = 'vid:' . $entity->vid;
+    }
+    else {
+      $info['name'] = 'fpid:' . $entity->fpid;
+    }
   }
 
   $info['entity_id'] = $info['name'];

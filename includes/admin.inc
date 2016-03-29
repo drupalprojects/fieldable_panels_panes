@@ -9,14 +9,24 @@
  * Page callback for settings page.
  */
 function fieldable_panels_panes_settings() {
-  // Get array of all FPP bundles.
-  $bundles = fieldable_panels_panes_get_bundle_labels();
-
   $form = array();
+
+  $form['fpp_revision_locking'] = array(
+    '#type' => 'radios',
+    '#title' => t('Should FPP ctools content reference FPP entities by entity ID or revision ID?'),
+    '#description' => t('For example, using a panelized entity, you can revert the entity to previous revision and FPPs will also revert if they are referenced by revision ID.'),
+    '#options' => array(
+      'legacy' => t('Legacy: use entity ID for all FPPs.'),
+      'lock' => t('Recommended: Use revision ID for non-reusable FPPs only.'),
+      'lock_all' => t('Use revision ID for all FPPs.'),
+    ),
+    '#default_value' => variable_get('fpp_revision_locking', 'legacy'),
+  );
+
   $form['fpp_blocks_expose'] = array(
     '#type' => 'checkbox',
     '#title' => t('Make fieldable panels panes available as blocks'),
-    '#description' => t('Fieldable panels panes that are resuable will be made available as blocks.'),
+    '#description' => t('Fieldable panels panes that are reusable will be made available as blocks.'),
     '#default_value' => variable_get('fpp_blocks_expose', FALSE),
   );
   $form['bundles'] = array(
@@ -33,6 +43,7 @@ function fieldable_panels_panes_settings() {
   );
 
   // Render checkbox for each FPP bundle if any FPP bundles exist.
+  $bundles = fieldable_panels_panes_get_bundle_labels();
   if (!empty($bundles)) {
     foreach ($bundles as $bundle => $info) {
       $form['bundles']['fpp_expose_' . $bundle] = array(

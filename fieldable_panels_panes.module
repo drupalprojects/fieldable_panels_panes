@@ -1002,8 +1002,12 @@ function fieldable_panels_panes_load_from_subtype($subtype_name) {
  * Properly load the entity via $subtype_name.
  *
  * @param string $subtype_name
- *   A string combining an indicator of the type of ID, e.g. 'fpid', 'vid' or
- *   'vuuid', and an integer ID, separated by a colon; e.g. "fpid:123".
+ *   A string combining an indicator of the type of ID, e.g. 'fpid', 'vid',
+ *   'uuid', 'vuuid' or 'current, and an integer ID, separated by a colon; e.g.
+ *   "fpid:123". If the type is 'current' the newest revision will be loaded,
+ *   'fpid' and 'uuid' will load the revision considered best, 'vid' and 'vuuid'
+ *   will load a specific revision. Both 'uuid' and 'vuuid' require the UUID
+ *   module to be present.
  *
  * @return object
  *   The requested FPP object.
@@ -1022,10 +1026,23 @@ function fieldable_panels_panes_load_from_subtype_force($subtype_name) {
     }
   }
 
+  // UUID integration for revisions.
+  elseif ($type == 'vuuid' && module_exists('uuid')) {
+   $vids = entity_get_id_by_uuid('fieldable_panels_pane', array($id), TRUE);
+    if ($vids && $content = entity_load('fieldable_panels_pane', FALSE, array('vid' => reset($vids)))) {
+      $object = reset($content);
+    }
+  }
   // If the type is 'vid' then a specific FPP revision is being requested.
   elseif ($type == 'vid') {
     $fpid = db_query('SELECT fpid FROM {fieldable_panels_panes_revision} WHERE vid = :vid', array(':vid' => $id))->fetchField();
     $object = fieldable_panels_panes_load($fpid, $id);
+  }
+
+  // Load up the current revision.
+  elseif ($type == 'current') {
+    $vid = db_query('SELECT MAX(vid) FROM {fieldable_panels_panes_revision} WHERE fpid = :fpid', array(':fpid' => $id))->fetchField();
+   $object = fieldable_panels_panes_load($id, $vid);
   }
 
   // The remaining scenario is that it's a regular FPP id, i.e. an "fpid", so
@@ -1525,4 +1542,33 @@ function fieldable_panels_panes_file_download_access($field, $entity_type, $enti
     ctools_include('context');
     return ctools_access($entity->view_access, fieldable_panels_panes_get_base_context($entity));
   }
+}
+
+/**
+ * Determine if an FPP's revision should be locked.
+ *
+ * @param object $entity
+ *   The FPP object being examined.
+ *
+ * @return bool
+ */
+function fieldable_panels_panes_revision_is_lockable($entity) {
+  $lock = variable_get('fpp_revision_locking', 'legacy');
+
+  // Only non-reusable FPPs will be lockable.
+  if ($lock == 'lock') {
+    $revision_context_aware = empty($entity->reusable);
+  }
+
+  // Lock all revisions, even reusable FPPs.
+  elseif ($lock == 'lock_all') {
+    $revision_context_aware = TRUE;
+  }
+
+  // Legacy mode, no revisions handling.
+  else {
+    $revision_context_aware = FALSE;
+  }
+
+  return $revision_context_aware;
 }

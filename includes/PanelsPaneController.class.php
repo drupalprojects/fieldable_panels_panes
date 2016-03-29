@@ -200,7 +200,12 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     $entity->uid = $uid;
     // Update the existing revision if specified.
     if (!empty($entity->vid)) {
-      drupal_write_record('fieldable_panels_panes_revision', $entity, 'vid');
+      if (module_exists('uuid')) {
+        drupal_write_record('fieldable_panels_panes_revision', $entity, 'vuuid');
+      }
+      else {
+        drupal_write_record('fieldable_panels_panes_revision', $entity, 'vid');
+      }
     }
     else {
       // Otherwise insert a new revision. This will automatically update $entity
