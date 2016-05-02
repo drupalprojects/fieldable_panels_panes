@@ -9,6 +9,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
   Optionally allow each FPP pane to be referenced by revision ID, allowing for
   editorial workflows when used with Panelizer.
 #2691577 by DamienMcKenna: Added placeholders for more tests.
+#2713699 by joelstein: Add pane-fpid-[FPID] class when FPPs referenced by
+  revision ID.
 
 
 Fieldable Panels Panes 7.x-1.8, 2016-03-02

@@ -935,6 +935,11 @@ function fieldable_panels_panes_preprocess_panels_pane(&$vars) {
       }
       ctools_include('cleanstring');
       $vars['classes_array'][] = 'pane-bundle-' . ctools_cleanstring($entity->bundle, array('lower case' => TRUE));
+
+      // Add pane-fpid-[fpid] class when referenced by revision ID.
+      if (strpos($vars['pane']->subtype, 'vid') === 0) {
+        $vars['classes_array'][] = 'pane-fpid-' . $vars['content']['#fieldable_panels_pane']->fpid;
+      }
     }
   }
 }
