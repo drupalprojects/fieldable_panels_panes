@@ -1243,10 +1243,20 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
     '#weight' => -10,
   );
 
-  $form['language'] = array(
-    '#type' => 'value',
-    '#value' => $entity->language,
-  );
+  if (module_exists('locale')) {
+    $form['language'] = array(
+      '#type' => 'select',
+      '#title' => t('Language'),
+      '#default_value' => $entity->language,
+      '#options' => array(LANGUAGE_NONE => t('Language neutral')) + locale_language_list('name'),
+    );
+  }
+  else {
+    $form['language'] = array(
+      '#type' => 'value',
+      '#value' => $entity->language,
+    );
+  }
 
   $form['link'] = array(
     '#type' => 'container',
