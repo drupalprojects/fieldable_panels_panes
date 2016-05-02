@@ -164,6 +164,11 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_admin_title($
     $output = t('Deleted/removed entity pane');
   }
 
+  // Indicate when the FPP is reusable.
+  if (!empty($entity->reusable)) {
+    $output .= ' (' . t('reusable') . ')';
+  }
+
   return $output;
 }
 

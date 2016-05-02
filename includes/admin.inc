@@ -13,14 +13,21 @@ function fieldable_panels_panes_settings() {
 
   $form['fpp_revision_locking'] = array(
     '#type' => 'radios',
-    '#title' => t('Should FPP ctools content reference FPP entities by entity ID or revision ID?'),
-    '#description' => t('For example, using a panelized entity, you can revert the entity to previous revision and FPPs will also revert if they are referenced by revision ID.'),
+    '#title' => t('Should FPP CTools content panes reference FPP entities by entity ID or revision ID?'),
+    '#description' => t('For example, a panelized entity can revert the entity to previous revision and FPPs will also revert if they are referenced by revision ID. This also allows for editorial workflows using e.g. the Workbench Moderation or Revisioning modules.'),
     '#options' => array(
-      'legacy' => t('Legacy: use entity ID for all FPPs.'),
-      'lock' => t('Recommended: Use revision ID for non-reusable FPPs only.'),
-      'lock_all' => t('Use revision ID for all FPPs.'),
+      'legacy' => t('Legacy: Use entity ID for all FPPs.'),
+      'lock' => t('Recommended: Use revision ID for non-reusable FPPs only; will also force each FPP update to create a new revision.'),
     ),
-    '#default_value' => variable_get('fpp_revision_locking', 'legacy'),
+    '#default_value' => variable_get('fpp_revision_locking', 'lock'),
+  );
+
+  $form['fpp_hide_contextual_links'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Hide the FPP contextual menus?'),
+    '#description' => t('Being able to edit FPPs directly can cause problems with the editorial workflows when using e.g. Panelizer.'),
+    '#default_value' => variable_get('fpp_hide_contextual_links', FALSE),
+    '#disabled' => !module_exists('contextual'),
   );
 
   $form['fpp_blocks_expose'] = array(

@@ -11,6 +11,11 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2691577 by DamienMcKenna: Added placeholders for more tests.
 #2713699 by joelstein: Add pane-fpid-[FPID] class when FPPs referenced by
   revision ID.
+#2695499 by DamienMcKenna, ttamniwdoog, azinck, heddn: On new sites,
+  non-reusable FPPs must now be referenced by revision ID, includes update
+  scripts to update sites as needed. FPPs may not have their reusability
+  changed after the initial creation. Non-reusable FPPs are always saved as a
+  new revision.
 
 
 Fieldable Panels Panes 7.x-1.8, 2016-03-02

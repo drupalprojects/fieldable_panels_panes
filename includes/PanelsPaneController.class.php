@@ -239,7 +239,10 @@ class PanelsPaneController extends DrupalDefaultEntityController {
     // behavior (for example, to restrict contextual links to certain view
     // modes) by implementing hook_fieldable_panels_pane_view_alter().
     if (!empty($entity->fpid) && !($view_mode == 'full' && fieldable_panels_pane_is_page($entity))) {
-      $build['#contextual_links']['fieldable_panels_panes'] = array('admin/structure/fieldable-panels-panes/view', array($entity->fpid));
+      // Allow the contextual links to be controlled from the settings page.
+      if (!variable_get('fpp_hide_contextual_links', FALSE)) {
+        $build['#contextual_links']['fieldable_panels_panes'] = array('admin/structure/fieldable-panels-panes/view', array($entity->fpid));
+      }
     }
 
     // Allow modules to modify the structured pane.

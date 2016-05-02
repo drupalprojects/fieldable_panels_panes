@@ -1296,33 +1296,15 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
       ),
     ),
     '#weight' => 10,
+    // It's dangerous to change an FPP's reusability after it is created.
+    '#access' => empty($entity->fpid),
   );
-
-  $form['revision'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Revision'),
-    '#collapsible' => TRUE,
-    '#collapsed' => empty($entity->revision),
-    '#group' => 'additional_settings',
-    '#attributes' => array(
-      'class' => array('fieldable-pane-pane-form-revision-information'),
-    ),
-    '#attached' => array(
-      'js' => array(
-        'vertical-tabs' => drupal_get_path('module', 'fieldable_panels_panes') . '/fieldable_panels_panes.vertical-tabs.js',
-      ),
-    ),
-    '#weight' => 30,
-  );
-
-  if (empty($entity->fpid)) {
-    $form['revision']['#access'] = FALSE;
-  }
 
   $form['reusable']['reusable'] = array(
     '#type' => 'checkbox',
     '#title' => t('Make this entity reusable'),
     '#default_value' => $entity->reusable,
+    '#description' => t('A reusable pane may be used multiple times on the same page or on other pages. A non-reusable pane may not be added to another page once it is created and added to this page. This option may not be changed after the pane is created.'),
   );
 
   $form['reusable']['category'] = array(
@@ -1361,21 +1343,50 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
     ),
   );
 
+  $form['revision'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Revision'),
+    '#collapsible' => TRUE,
+    '#collapsed' => empty($entity->revision),
+    '#group' => 'additional_settings',
+    '#attributes' => array(
+      'class' => array('fieldable-pane-pane-form-revision-information'),
+    ),
+    '#attached' => array(
+      'js' => array(
+        'vertical-tabs' => drupal_get_path('module', 'fieldable_panels_panes') . '/fieldable_panels_panes.vertical-tabs.js',
+      ),
+    ),
+    '#weight' => 30,
+    '#access' => empty($entity->fpid),
+  );
+
   $form['revision']['revision'] = array(
     '#type' => 'checkbox',
     '#title' => t('Create new revision'),
     '#default_value' => 1,
   );
 
-  if (!user_access('administer fieldable panels panes') || $entity->vid != $entity->current_vid) {
+  // Force a new revision to be created if the user does not have 'admin FPP'
+  // access, or the 'lock' mode was enabled and this is not a reusable FPP.
+  if (!user_access('administer fieldable panels panes')
+      || $entity->vid != $entity->current_vid
+      || (!empty($entity->fpid) && empty($entity->reusable)
+        && variable_get('fpp_revision_locking', 'lock') == 'lock')) {
     $form['revision']['revision']['#disabled'] = TRUE;
     $form['revision']['revision']['#value'] = TRUE;
+
+    // Inform the user that the pane will be locked.
+    if (!empty($entity->fpid) && empty($entity->reusable)
+        && variable_get('fpp_revision_locking', 'lock') == 'lock') {
+      $form['revision']['revision']['#description'] = t('A new revision will be created because this pane is non-reusable and the locking mode has been enabled.');
+    }
   }
 
   $form['revision']['log'] = array(
     '#type' => 'textarea',
     '#title' => t('Log message'),
-    '#description' => t('Provide an explanation of the changes you are making. This will help other authors understand your motivations.'),
+    '#description' => t('Provide an explanation of the changes being made.'),
     '#default_value' => '',
     '#states' => array(
       'visible' => array(
@@ -1558,16 +1569,11 @@ function fieldable_panels_panes_file_download_access($field, $entity_type, $enti
  * @return bool
  */
 function fieldable_panels_panes_revision_is_lockable($entity) {
-  $lock = variable_get('fpp_revision_locking', 'legacy');
+  $lock = variable_get('fpp_revision_locking', 'lock');
 
   // Only non-reusable FPPs will be lockable.
   if ($lock == 'lock') {
     $revision_context_aware = empty($entity->reusable);
-  }
-
-  // Lock all revisions, even reusable FPPs.
-  elseif ($lock == 'lock_all') {
-    $revision_context_aware = TRUE;
   }
 
   // Legacy mode, no revisions handling.
