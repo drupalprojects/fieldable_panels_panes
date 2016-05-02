@@ -19,9 +19,10 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2493899 by Upchuk, DamienMcKenna: Language selector on FPP entity form.
 #2688577 by rigoucr, DamienMcKenna: Recover the default FPP type if it was
   deleted in update 7108.
-#2541184 by DamienMcKenna, Andrew Edwards: Make the admin title always available
-  so it can always be used. Also, make the FPP category editable for saved
-  objects and the revision field available when editing non-reusable FPPs.
+#2541184 by DamienMcKenna, Andrew Edwards, solipsist: Make the admin title
+  always available so it can always be used. Also, make the FPP category
+  editable for saved objects and the revision field available when editing
+  non-reusable FPPs.
 
 
 Fieldable Panels Panes 7.x-1.8, 2016-03-02
