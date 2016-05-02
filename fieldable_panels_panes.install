@@ -382,15 +382,13 @@ function fieldable_panels_panes_update_7108() {
   $bundles = array();
   $entity_info = entity_get_info('fieldable_panels_pane');
 
-  // No bundles defined. This could happen if the module was updated and cache
-  // cleared before update was run as entity info's cache will no longer
-  // contain the old default.
-  $t = get_t();
-  if (empty($entity_info['bundles'])) {
-    $entity_info['bundles'] = array(
-      'fieldable_panels_pane' => array(
-          'label' => $t('Panels pane'),
-      ),
+  // The default bundle is not defined. This could happen if the module was
+  // updated and cache cleared before update was run as entity info's cache
+  // will no longer contain the old default.
+  if (empty($entity_info['bundles']['fieldable_panels_pane'])) {
+    $t = get_t();
+    $entity_info['bundles']['fieldable_panels_pane'] = array(
+      'label' => $t('Panels pane'),
     );
   }
 
@@ -695,5 +693,27 @@ function fieldable_panels_panes_update_7113() {
 
   if ($sandbox['#finished'] === TRUE) {
     return t('Updated @count record(s) to use the new locking system.', array('@count' => $sandbox['max']));
+  }
+}
+
+/**
+ * Restore the default FPP bundle that may have been purged in update 7108.
+ */
+function incae_custom_panes_update_7114() {
+  if (!variable_get('fieldable_panels_panes_skip_default_type', FALSE)) {
+    // Check if the FPP type exists.
+    $found = db_select('fieldable_panels_pane_type', 'fppt')
+      ->fields('fppt', 'name')
+      ->condition('name', 'fieldable_panels_pane')
+      ->execute()
+      ->fetchField();
+    if (empty($found)) {
+      ctools_include('export');
+      $item = ctools_export_crud_new('fieldable_panels_pane_type');
+      $item->name = 'fieldable_panels_pane';
+      $item->title = t('Panels Pane');
+      ctools_export_crud_save('fieldable_panels_pane_type', $item);
+      return t('The default Fieldable Panels Pane entity type has been recovered.');
+    }
   }
 }
