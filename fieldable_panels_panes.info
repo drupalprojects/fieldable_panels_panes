@@ -39,3 +39,15 @@ test_dependencies[] = devel
 files[] = tests/fpp.helper.test
 files[] = tests/fpp.permissions.test
 files[] = tests/fpp.file_access.test
+
+; Test the interaction with the Panels module.
+test_dependencies[] = panels
+files[] = tests/fpp.with_panels.test
+
+; Test the interaction with the Panelizer module.
+test_dependencies[] = panelizer
+files[] = tests/fpp.with_panelizer.test
+
+; Test the node revisions workflow with Revisioning module.
+test_dependencies[] = revisioning
+files[] = tests/fpp.with_revisioning.test

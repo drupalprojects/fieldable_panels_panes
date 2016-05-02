@@ -1,0 +1,10 @@
+name = FPP-with-Panels Tests
+description = Helper module for testing the Panels integration for FPP.
+core = 7.x
+
+; Don't show this on the modules admin page.
+hidden = TRUE
+
+dependencies[] = ctools
+dependencies[] = page_manager
+dependencies[] = fieldable_panels_panes
