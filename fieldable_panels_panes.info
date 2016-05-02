@@ -42,6 +42,7 @@ files[] = tests/fpp.helper.test
 files[] = tests/fpp.permissions.test
 files[] = tests/fpp.file_access.test
 files[] = tests/fpp.locale.test
+files[] = tests/fpp.entity_form.test
 
 ; Test the interaction with the Panels module.
 test_dependencies[] = panels

@@ -1291,6 +1291,23 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
     '#weight' => 99,
   );
 
+  $form['admin'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Admin'),
+    '#collapsible' => TRUE,
+    '#collapsed' => empty($entity->admin),
+    '#group' => 'additional_settings',
+    '#attributes' => array(
+      'class' => array('fieldable-pane-pane-form-admin-information'),
+    ),
+    '#attached' => array(
+      'js' => array(
+        'vertical-tabs' => drupal_get_path('module', 'fieldable_panels_panes') . '/fieldable_panels_panes.vertical-tabs.js',
+      ),
+    ),
+    '#weight' => 10,
+  );
+
   $form['reusable'] = array(
     '#type' => 'fieldset',
     '#title' => t('Reusability'),
@@ -1306,8 +1323,9 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
       ),
     ),
     '#weight' => 10,
-    // It's dangerous to change an FPP's reusability after it is created.
-    '#access' => empty($entity->fpid),
+    // Cannot change this after the initial creation, but reusable FPPs can be
+    // have their category changed.
+    '#access' => empty($entity->fpid) || (!empty($entity->fpid) && !empty($entity->reusable)),
   );
 
   $form['reusable']['reusable'] = array(
@@ -1315,6 +1333,9 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
     '#title' => t('Make this entity reusable'),
     '#default_value' => $entity->reusable,
     '#description' => t('A reusable pane may be used multiple times on the same page or on other pages. A non-reusable pane may not be added to another page once it is created and added to this page. This option may not be changed after the pane is created.'),
+    // It's dangerous to change an FPP's reusability after it is created, so
+    // this is disabled when editing existing FPPs.
+    '#disabled' => !empty($entity->fpid),
   );
 
   $form['reusable']['category'] = array(
@@ -1329,28 +1350,18 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
     ),
   );
 
-  $form['reusable']['admin_title'] = array(
+  $form['admin']['admin_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Administrative title'),
-    '#description' => t('The name this content will appear in the "Add content" modal.'),
+    '#description' => t("Title used for administrative purposes. Used to identify panes within admin pages."),
     '#default_value' => $entity->admin_title,
-    '#states' => array(
-      'visible' => array(
-        ':input[name="reusable"]' => array('checked' => TRUE),
-      ),
-    ),
   );
 
-  $form['reusable']['admin_description'] = array(
+  $form['admin']['admin_description'] = array(
     '#type' => 'textarea',
     '#title' => t('Administrative description'),
     '#description' => t('A description of what this content is, does or is for, for administrative use.'),
     '#default_value' => $entity->admin_description,
-    '#states' => array(
-      'visible' => array(
-        ':input[name="reusable"]' => array('checked' => TRUE),
-      ),
-    ),
   );
 
   $form['revision'] = array(
@@ -1368,7 +1379,8 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
       ),
     ),
     '#weight' => 30,
-    '#access' => empty($entity->fpid),
+    // Don't show the revision options if this is a new FPP.
+    '#access' => !empty($entity->fpid),
   );
 
   $form['revision']['revision'] = array(
