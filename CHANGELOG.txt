@@ -25,8 +25,6 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
   non-reusable FPPs.
 #2717609 by dsnopek: Use the standard entity_label() function to get the FPP's
   title if no admin title is provided for the admin UI.
-#2498623 by drclaw: Limit the pane's view modes list to those which have been
-  customized.
 #1724394 by DamienMcKenna: Hide some links if Field UI is not installed.
 #2374577 by grasmash, DamienMcKenna, walangitan: Cache the FPPs list for CTools.
 #2508629 by malik.kotob, DamienMcKenna: Properly handle HTML entities in titles

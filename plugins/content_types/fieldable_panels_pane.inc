@@ -252,34 +252,18 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form($fo
   ctools_form_include_file($form_state, $form_state['plugin']['path'] . '/' . $form_state['plugin']['file']);
 
   $entity_info = entity_get_info('fieldable_panels_pane');
-  $bundle_settings = field_bundle_settings('fieldable_panels_pane', $form_state['entity']->bundle);
 
-  // Get a list of all view modes for this FPP bundle.
-  $view_mode_options = array();
-  foreach ($bundle_settings['view_modes'] as $mode => $option) {
-    if (!empty($option['custom_settings'])) {
-      $view_mode_options[$mode] = $entity_info['view modes'][$mode]['label'];
-    }
+  // Show all of the available view modes.
+  foreach ($entity_info['view modes'] as $mode => $option) {
+    $view_mode_options[$mode] = $option['label'];
   }
-
-  // There are some view modes with custom settings.
-  if (!empty($view_mode_options)) {
-    $form['view_mode'] = array(
-      '#title' => t('View mode'),
-      '#type' => 'select',
-      '#description' => t('Select a view mode for this pane.'),
-      '#options' => $view_mode_options,
-      '#default_value' => $conf['view_mode'],
-    );
-  }
-  // Otherwise, just use the default 'full' view mode and don't show the view
-  // mode selector.
-  else {
-    $form['view_mode'] = array(
-      '#type' => 'value',
-      '#value' => 'full',
-    );
-  }
+  $form['view_mode'] = array(
+    '#title' => t('View mode'),
+    '#type' => 'select',
+    '#description' => t('Select a view mode for this pane.'),
+    '#options' => $view_mode_options,
+    '#default_value' => $conf['view_mode'],
+  );
 
   // If we're adding a reusable type, the only thing we want on the form is
   // the view mode, so skip the rest.
