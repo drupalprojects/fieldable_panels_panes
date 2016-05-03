@@ -156,13 +156,11 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_render($subty
 }
 
 /**
- * Callback to provide the administrative title of the custom content.
+ * Gets the admin title from the entity.
  */
-function fieldable_panels_panes_fieldable_panels_pane_content_type_admin_title($subtype, $conf) {
-  $entity = fieldable_panels_panes_load_from_subtype($subtype);
-
+function _fieldable_panels_panes_admin_title_from_entity($entity) {
   if (!empty($entity) && is_object($entity)) {
-    $output = !empty($entity->admin_title) ? $entity->admin_title : (!empty($entity->title) ? $entity->title : t('No title'));
+    $output = !empty($entity->admin_title) ? $entity->admin_title : (!empty($entity->title) ? $entity->title : check_plain(entity_label('fieldable_panels_pane', $entity)));
   }
   else {
     $output = t('Deleted/removed entity pane');
@@ -174,6 +172,14 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_admin_title($
   }
 
   return $output;
+}
+
+/**
+ * Callback to provide the administrative title of the custom content.
+ */
+function fieldable_panels_panes_fieldable_panels_pane_content_type_admin_title($subtype, $conf) {
+  $entity = fieldable_panels_panes_load_from_subtype($subtype);
+  return _fieldable_panels_panes_admin_title_from_entity($entity);
 }
 
 /**
@@ -348,7 +354,7 @@ function _fieldable_panels_panes_default_content_type() {
  */
 function _fieldable_panels_panes_custom_content_type($entity) {
   $info = array(
-    'title' => check_plain(entity_label('fieldable_panels_pane', $entity)),
+    'title' => _fieldable_panels_panes_admin_title_from_entity($entity),
     'description' => check_plain($entity->admin_description),
     'category' => $entity->category ? check_plain($entity->category) : t('Miscellaneous'),
     'all contexts' => TRUE,
