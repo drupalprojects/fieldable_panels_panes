@@ -23,6 +23,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
   always available so it can always be used. Also, make the FPP category
   editable for saved objects and the revision field available when editing
   non-reusable FPPs.
+#2622808 by StoraH: Allow the FPP entity's view callback to be overridden.
 
 
 Fieldable Panels Panes 7.x-1.8, 2016-03-02
