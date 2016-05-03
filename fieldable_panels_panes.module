@@ -1608,3 +1608,33 @@ function fieldable_panels_panes_revision_is_lockable($entity) {
 
   return $revision_context_aware;
 }
+
+/**
+ * Implements hook_entity_insert().
+ */
+function fieldable_panels_panes_entity_insert($entity, $type) {
+  if ($type == 'fieldable_panels_pane') {
+    $cid = "fieldable_panels_panes_{$entity->bundle}_content_type";
+    cache_clear_all($cid, 'cache_panels');
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function fieldable_panels_panes_entity_update($entity, $type) {
+  if ($type == 'fieldable_panels_pane') {
+    $cid = "fieldable_panels_panes_{$entity->bundle}_content_type";
+    cache_clear_all($cid, 'cache_panels');
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function fieldable_panels_panes_entity_delete($entity, $type) {
+  if ($type == 'fieldable_panels_pane') {
+    $cid = "fieldable_panels_panes_{$entity->bundle}_content_type";
+    cache_clear_all($cid, 'cache_panels');
+  }
+}

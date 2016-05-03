@@ -101,15 +101,59 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_content_type(
 function fieldable_panels_panes_fieldable_panels_pane_content_type_content_types() {
   $types = _fieldable_panels_panes_default_content_type();
 
-  $ids = db_query('SELECT fpid FROM {fieldable_panels_panes} WHERE reusable = 1')->fetchCol();
-  if (!empty($ids)) {
-    $entities = fieldable_panels_panes_load_multiple($ids);
-    if (!empty($entities)) {
-      foreach ($entities as $entity) {
-        $subtype = _fieldable_panels_panes_custom_content_type($entity);
-        $types[$subtype['name']] = $subtype;
+  // The current function is called as part of the standard panel pane rendering
+  // pipeline. To prevent a full list of FPP entities from being generated every
+  // time that a panel is rendered, generate the list only when a request is
+  // made from an administrative URL.
+  // @see https://www.drupal.org/node/2374577
+  if (path_is_admin(current_path()) || preg_match('/panels/i', current_path())) {
+    $fpp_info = entity_get_info('fieldable_panels_pane');
+    foreach ($fpp_info['bundles'] as $bundle_name => $bundle) {
+      $ids = db_query('SELECT fpid FROM {fieldable_panels_panes} WHERE reusable = 1 AND bundle = :bundle', array(':bundle' => $bundle_name))->fetchCol();
+      if (!empty($ids)) {
+        $types = array_merge($types, fieldable_panels_panes_build_content_type_info($bundle_name, $ids));
       }
     }
+  }
+
+  return $types;
+}
+
+/**
+ * Returns a list of all reusable FPP entities of a given bundle.
+ *
+ * @param $bundle
+ *   Fieldable panel pane bundle machine name.
+ * @param $ids
+ *   An array of fieldable panel pane entity ids.
+ *
+ * @return array
+ *   An array of content type information for each fpp entity.
+ */
+function fieldable_panels_panes_build_content_type_info($bundle, $ids) {
+  $types = array();
+  $cid = "fieldable_panels_panes_{$bundle}_content_type";
+
+  if (($cache = cache_get($cid, 'cache_panels')) && !empty($cache->data)) {
+    $types = $cache->data;
+  }
+  else {
+    $entities = fieldable_panels_panes_load_multiple($ids);
+    if (!empty($entities)) {
+      foreach ($entities as $entity_id => $entity) {
+        $subtype = _fieldable_panels_panes_custom_content_type($entity);
+        $types[$subtype['name']] = $subtype;
+
+        // Re-key $entities such that $types and $entities are keyed
+        // identically.
+        $entities[$subtype['name']] = $entity;
+        unset($entities[$entity_id]);
+      }
+    }
+
+    // Trigger hook_fieldable_panels_panes_content_types_alter().
+    drupal_alter('fieldable_panels_panes_content_types', $types, $bundle, $entities);
+    cache_set($cid, $types, 'cache_panels');
   }
 
   return $types;
