@@ -31,6 +31,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #1724394 by DamienMcKenna: Hide some links if Field UI is not installed.
 #2374577 by grasmash, DamienMcKenna, walangitan: Cache the FPPs list for CTools.
 #2718035 by DamienMcKenna: Gracefully failover if Entity API is not installed.
+#2508629 by malik.kotob, DamienMcKenna: Properly handle HTML entities in titles
+  when the field is a link.
 
 
 Fieldable Panels Panes 7.x-1.8, 2016-03-02
