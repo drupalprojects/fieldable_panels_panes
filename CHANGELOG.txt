@@ -26,6 +26,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2622808 by StoraH: Allow the FPP entity's view callback to be overridden.
 #2717609 by dsnopek: Use the standard entity_label() function to get the FPP's
   title if no admin title is provided for the admin UI.
+#2498623 drclaw: Limit the pane's view modes list to those which have been
+  customized.
 
 
 Fieldable Panels Panes 7.x-1.8, 2016-03-02
