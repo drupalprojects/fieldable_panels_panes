@@ -172,18 +172,7 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_render($subty
 
     $block = new stdClass();
     $block->title = '';
-
-    // Allow the entity's view callback to be overridden.
-    $info = entity_get_info('fieldable_panels_pane');
-    $view_callback = $info['view callback'];
-    if (function_exists($view_callback)) {
-      $block->content = $view_callback(array($entity), $view_mode, NULL, 'fieldable_panels_pane');
-    }
-    // Failover in case either Entity API is not installed or the view callback
-    // doesn't exist.
-    else {
-      $block->content = fieldable_panels_panes_view($entity, $view_mode);
-    }
+    $block->content = fieldable_panels_panes_view($entity, $view_mode);
 
     // Was there a title defined?
     if (!empty($entity->title)) {

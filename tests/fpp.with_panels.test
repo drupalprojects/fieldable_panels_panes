@@ -52,7 +52,7 @@ class FppWithPanelsTest extends FppTestHelper {
   /**
    * Make sure admin titles with XSS code can't break the site.
    */
-  function testAdminTitleWithAmpersands() {
+  function testAdminTitleLinkWithAmpersands() {
     // Create an FPP with an XSS payload in the admin title.
     $fpp = new StdClass();
     $fpp->bundle = $this->bundle;
@@ -103,6 +103,9 @@ class FppWithPanelsTest extends FppTestHelper {
     // htmlencoded.
     $this->assertNoRaw($fpp->title);
     $this->assertNoRaw(str_replace('&', '&amp;', str_replace('&', '&amp;', $fpp->title)));
+
+    // Confirm the link exists.
+    $this->assertLink($fpp->title);
   }
 
 }

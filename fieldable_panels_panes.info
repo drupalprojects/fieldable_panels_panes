@@ -48,6 +48,10 @@ files[] = tests/fpp.entity_form.test
 test_dependencies[] = panels
 files[] = tests/fpp.with_panels.test
 
+; Test the interaction with the Panels and Entity API modules.
+test_dependencies[] = entity
+files[] = tests/fpp.with_panels_and_entity.test
+
 ; Test the interaction with the Panelizer module.
 test_dependencies[] = panelizer
 files[] = tests/fpp.with_panelizer.test
