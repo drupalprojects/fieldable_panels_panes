@@ -584,14 +584,17 @@ function fieldable_panels_panes_panels_dashboard_blocks(&$vars) {
   $rows = array();
 
   foreach (ctools_export_crud_load_all('fieldable_panels_pane_type') as $type) {
-    $rows[] = array(
+    $items = array(
       $type->title,
       l(t('List'), 'admin/structure/fieldable-panels-panes/' . $type->name),
       l(t('Edit'), 'admin/structure/fieldable-panels-panes/' . $type->name . '/edit'),
       l(t('Add'), 'admin/structure/fieldable-panels-panes/' . $type->name . '/add'),
-      l(t('Manage Fields'), 'admin/structure/fieldable-panels-panes/' . $type->name . '/fields'),
-      l(t('Manage Display'), 'admin/structure/fieldable-panels-panes/' . $type->name . '/display'),
     );
+    if (module_exists('field_ui')) {
+      $items[] = l(t('Manage Fields'), 'admin/structure/fieldable-panels-panes/' . $type->name . '/fields');
+      $items[] = l(t('Manage Display'), 'admin/structure/fieldable-panels-panes/' . $type->name . '/display');
+    }
+    $rows[] = $items;
 
     // Only display 10.
     if (++$count >= 10) {
