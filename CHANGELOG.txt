@@ -1,5 +1,6 @@
 Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 ----------------------------------------------
+By cboyden, DamienMcKenna, dsnopek: Admin title formatting.
 
 
 Fieldable Panels Panes 7.x-1.9, 2016-05-03
