@@ -699,11 +699,11 @@ function fieldable_panels_panes_update_7113() {
 /**
  * Restore the default FPP bundle that may have been purged in update 7108.
  */
-function incae_custom_panes_update_7114() {
+function fieldable_panels_panes_update_7114() {
   if (!variable_get('fieldable_panels_panes_skip_default_type', FALSE)) {
     // Check if the FPP type exists.
     $found = db_select('fieldable_panels_pane_type', 'fppt')
-      ->fields('fppt', 'name')
+      ->fields('fppt', array('name'))
       ->condition('name', 'fieldable_panels_pane')
       ->execute()
       ->fetchField();
