@@ -77,14 +77,13 @@ class FppPermissionsTest extends FppTestHelper {
     $this->assertResponse(200, 'Loaded the Manage Display page for the default FPP type.');
     $this->assertText(t('Use custom display settings for the following view modes'));
 
-    // These two paths don't exist.
+    // These two legacy paths should redirect to the correct paths.
     $this->drupalGet('admin/structure/fieldable-panels-panes/manage/' . $this->bundle . '/fields');
     $this->assertResponse(200);
-    $this->assertText(t('There are currently no entities of this type.'), 'The old(?) FPP manage fields URL no longer works.');
-
+    $this->assertEqual($this->getUrl(), url('admin/structure/fieldable-panels-panes/' . $this->bundle . '/fields', array('absolute' => TRUE)));
     $this->drupalGet('admin/structure/fieldable-panels-panes/manage/' . $this->bundle . '/display');
     $this->assertResponse(200);
-    $this->assertText(t('There are currently no entities of this type.'), 'The old(?) FPP manage display URL no longer works.');
+    $this->assertEqual($this->getUrl(), url('admin/structure/fieldable-panels-panes/' . $this->bundle . '/display', array('absolute' => TRUE)));
   }
 
   /**
@@ -110,7 +109,7 @@ class FppPermissionsTest extends FppTestHelper {
   function testCreateBundlePermission() {
     // Create a user with the admin permission.
     $permissions = array(
-      'create fieldable ' . $this->bundle,
+      "create fieldable {$this->bundle}",
     );
     $this->user = $this->createUser($permissions);
     $this->drupalLogin($this->user);
@@ -150,7 +149,7 @@ class FppPermissionsTest extends FppTestHelper {
   function testEditBundlePermission() {
     // Create a user with edit permission.
     $permissions = array(
-      'edit fieldable ' . $this->bundle,
+      "edit fieldable {$this->bundle}",
     );
     $this->user = $this->createUser($permissions);
     $this->drupalLogin($this->user);
@@ -166,8 +165,8 @@ class FppPermissionsTest extends FppTestHelper {
   function testCreateEditBundlePermission() {
     // Create a user with create & edit permission.
     $permissions = array(
-      'create fieldable ' . $this->bundle,
-      'edit fieldable ' . $this->bundle,
+      "create fieldable {$this->bundle}",
+      "edit fieldable {$this->bundle}",
     );
     $this->user = $this->createUser($permissions);
     $this->drupalLogin($this->user);
@@ -200,8 +199,8 @@ class FppPermissionsTest extends FppTestHelper {
   function testDeleteBundlePermission() {
     // Create a user with the admin permission.
     $permissions = array(
-      'create fieldable ' . $this->bundle,
-      'delete fieldable ' . $this->bundle,
+      "create fieldable {$this->bundle}",
+      "delete fieldable {$this->bundle}",
     );
     $this->user = $this->createUser($permissions);
     $this->drupalLogin($this->user);

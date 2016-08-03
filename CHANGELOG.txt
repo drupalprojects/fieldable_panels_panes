@@ -2,6 +2,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 ----------------------------------------------
 #2688577 by rigoucr: Wrong function name for update 7114.
 #2778265 by DamienMcKenna: Fixed tests due to permission changes in core.
+#2233363 by DamienMcKenna: Removed some legacy paths that were causing problems
+  on some sites.
 
 
 Fieldable Panels Panes 7.x-1.10, 2016-05-04
