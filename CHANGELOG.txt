@@ -6,6 +6,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
   on some sites.
 #2798963 by tbfisher: Typo on Migrate integration could lead to dataloss.
 #2798965 by tbfisher: Migrate class for use as a data source.
+#2730465 by joelpittet: Fixed integration with Panel Nodes.
 
 
 Fieldable Panels Panes 7.x-1.10, 2016-05-04

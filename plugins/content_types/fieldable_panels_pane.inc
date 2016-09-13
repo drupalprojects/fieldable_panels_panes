@@ -104,9 +104,9 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_content_types
   // The current function is called as part of the standard panel pane rendering
   // pipeline. To prevent a full list of FPP entities from being generated every
   // time that a panel is rendered, generate the list only when a request is
-  // made from an administrative URL.
+  // made from an administrative URL or Panel Nodes pages.
   // @see https://www.drupal.org/node/2374577
-  if (path_is_admin(current_path()) || preg_match('/panels/i', current_path())) {
+  if (path_is_admin(current_path()) || preg_match('#(panels|panel_content$)#i', current_path())) {
     $fpp_info = entity_get_info('fieldable_panels_pane');
     foreach ($fpp_info['bundles'] as $bundle_name => $bundle) {
       $ids = db_query('SELECT fpid FROM {fieldable_panels_panes} WHERE reusable = 1 AND bundle = :bundle', array(':bundle' => $bundle_name))->fetchCol();
