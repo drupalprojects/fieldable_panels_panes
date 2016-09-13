@@ -179,14 +179,16 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_render($subty
       // Is this view mode configured?
       $is_view_mode_set = isset($settings['extra_fields']['display']['title'][$view_mode]['visible']);
 
-      // Is the title configured for this view mode?
-      $show_view_mode_title = ($is_view_mode_set && $settings['extra_fields']['display']['title'][$view_mode]['visible']);
-
       // Should the default view mode show the title?
       $show_default_title = !empty($settings['extra_fields']['display']['title']['default']['visible']);
 
+      // Is the title configured for this view mode?
+      $show_view_mode_title = ($is_view_mode_set && $settings['extra_fields']['display']['title'][$view_mode]['visible']);
+
       // Combine all of the above logic.
-      if (empty($settings['extra_fields']['display']) || (!$is_view_mode_set && $show_default_title) || $show_view_mode_title) {
+      if (empty($settings['extra_fields']['display'])
+          || (!$is_view_mode_set && $show_default_title)
+          || !$show_view_mode_title) {
         $block->title = filter_xss_admin($entity->title);
       }
     }
