@@ -144,7 +144,7 @@ class MigrateDestinationFieldablePanelsPanes extends MigrateDestinationEntity {
       if (!isset($fieldable_panels_pane->fpid)) {
         throw new MigrateException(t('System-of-record is DESTINATION, but no destination fpid provided'));
       }
-      $old_fieldable_panels_panes = entity_load_single('fieldable_panels_panes', $fieldable_panels_pane->fpid);
+      $old_fieldable_panels_panes = entity_load_single('fieldable_panels_pane', $fieldable_panels_pane->fpid);
       if (empty($old_fieldable_panels_panes)) {
         throw new MigrateException(t('System-of-record is DESTINATION, but fieldable panels pane !fpid does not exist',
           array('!fpid' => $fieldable_panels_pane->fpid)));
