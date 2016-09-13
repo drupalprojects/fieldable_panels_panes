@@ -438,6 +438,7 @@ function _fieldable_panels_panes_custom_content_type($entity) {
   }
 
   $info['entity_id'] = $info['name'];
+  $info['bundle'] = $entity->bundle;
   return $info;
 }
 

@@ -991,7 +991,7 @@ function fieldable_panels_panes_load_from_subtype($subtype_name) {
   $subtype_info = ctools_content_get_subtype($plugin, $subtype_name);
 
   // This means we're probably in the process of creating a new one.
-  if (isset($subtype_info['bundle'])) {
+  if (!isset($subtype_info['entity_id'])) {
     return fieldable_panels_panes_create(array('bundle' => $subtype_info['bundle']));
   }
 

@@ -8,6 +8,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2798965 by tbfisher: Migrate class for use as a data source.
 #2730465 by joelpittet: Fixed integration with Panel Nodes.
 #2548883 by Ahmad Abbad: Title field was shown twice in certain circumstances.
+#2637740 by joelstein, Chris Burge: Add the entity's bundle name, to make some
+  of the hooks easier to work with.
 
 
 Fieldable Panels Panes 7.x-1.10, 2016-05-04
