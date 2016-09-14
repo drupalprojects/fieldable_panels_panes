@@ -56,6 +56,10 @@ files[] = tests/fpp.with_panels_and_entity.test
 test_dependencies[] = panelizer
 files[] = tests/fpp.with_panelizer.test
 
+; Test the interaction with the Pathauto module.
+test_dependencies[] = pathauto
+;files[] = tests/fpp.with_pathauto.test
+
 ; Test the node revisions workflow with Revisioning module.
 test_dependencies[] = revisioning
 files[] = tests/fpp.with_revisioning.test

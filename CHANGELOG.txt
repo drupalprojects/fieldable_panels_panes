@@ -10,6 +10,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2548883 by Ahmad Abbad: Title field was shown twice in certain circumstances.
 #2637740 by joelstein, Chris Burge: Add the entity's bundle name, to make some
   of the hooks easier to work with.
+#2494733 by DamienMcKenna: Add a test dependency on Pathauto.
 
 
 Fieldable Panels Panes 7.x-1.10, 2016-05-04
