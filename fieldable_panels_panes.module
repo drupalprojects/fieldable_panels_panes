@@ -1418,6 +1418,14 @@ function fieldable_panels_panes_entity_edit_form($form, &$form_state) {
     ),
   );
 
+  // Override reusable pane settings to be changed after the pane is created.
+  if (variable_get('fpp_allow_reusable_access', FALSE)) {
+    // Reset field access.
+    unset($form['reusable']['#access']);
+    $form['reusable']['reusable']['#description'] = t('A reusable pane may be used multiple times on the same page or on other pages. A non-reusable pane may not be added to another page once it is created and added to this page. Once this option has been checked it cannot be turned off.');
+    $form['reusable']['reusable']['#disabled'] = !empty($form_state['entity']->reusable);
+  }
+
   $language = NULL;
   if (function_exists('entity_language')) {
     // entity_language() was added in Drupal 7.15.

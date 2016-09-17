@@ -31,6 +31,7 @@ function fieldable_panels_panes_uninstall() {
 
   // Variables.
   variable_del('fieldable_panels_panes_skip_default_type');
+  variable_del('fpp_allow_reusable_access');
   variable_del('fpp_blocks_expose');
   variable_del('fpp_hide_contextual_links');
   variable_del('fpp_revision_locking');

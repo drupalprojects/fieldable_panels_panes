@@ -13,6 +13,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2494733 by DamienMcKenna: Added a test dependency on Pathauto.
 #2494733 by DamienMcKenna: Added a test for path handling when Pathauto is
   installed.
+#2801605 by scuba_fly, DamienMcKenna, mrmikedewolf: Allow 'reuseable' option to
+  be changed after initial FPP creation.
 
 
 Fieldable Panels Panes 7.x-1.10, 2016-05-04
