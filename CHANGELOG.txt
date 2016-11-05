@@ -15,6 +15,9 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
   installed.
 #2801605 by scuba_fly, DamienMcKenna, mrmikedewolf: Allow 'reuseable' option to
   be changed after initial FPP creation.
+#2814117 by cboyden, lucas.constantino, dsnopek: Added
+  hook_fieldable_panels_panes_access() to allow other modules to control access
+  to Fieldable Panels Pane objects.
 
 
 Fieldable Panels Panes 7.x-1.10, 2016-05-04
