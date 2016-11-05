@@ -20,6 +20,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
   to Fieldable Panels Pane objects.
 #2801353 by ChaseOnTheWeb, DamienMcKenna: Duplicate logic of update_7112 and
   update_7113 for when using UUID.
+#2723655 by DamienMcKenna: Fixed usage of POSITION() in update_7112 and
+  update_7113.
 
 
 Fieldable Panels Panes 7.x-1.10, 2016-05-04

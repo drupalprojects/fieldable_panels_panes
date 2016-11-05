@@ -518,7 +518,7 @@ function fieldable_panels_panes_update_7112(&$sandbox) {
     $sandbox['max'] = db_query("SELECT DISTINCT fpp.fpid as fpid, fpp.vid as vid
       FROM {fieldable_panels_panes} fpp
       INNER JOIN {panels_pane} pp
-        ON fpp.fpid = SUBSTRING_INDEX(pp.subtype, ':', -1)
+        ON fpp.fpid = SUBSTRING(pp.subtype FROM (POSITION(':' IN pp.subtype) + 1))
       INNER JOIN {panelizer_entity} pe
         ON pe.did = pp.did
       WHERE (pp.subtype LIKE 'fpid:%' OR pp.subtype LIKE 'current:%')
@@ -538,7 +538,7 @@ function fieldable_panels_panes_update_7112(&$sandbox) {
   $results = db_query_range("SELECT DISTINCT fpp.fpid as fpid, fpp.vid as vid
     FROM {fieldable_panels_panes} fpp
     INNER JOIN {panels_pane} pp
-      ON fpp.fpid = SUBSTRING_INDEX(pp.subtype, ':', -1)
+      ON fpp.fpid = SUBSTRING(pp.subtype FROM (POSITION(':' IN pp.subtype) + 1))
     INNER JOIN {panelizer_entity} pe
       ON pe.did = pp.did
     WHERE (pp.subtype LIKE 'fpid:%' OR pp.subtype LIKE 'current:%')
@@ -644,7 +644,7 @@ function fieldable_panels_panes_update_7113() {
     $sandbox['max'] = db_query("SELECT DISTINCT fpp.fpid as fpid, fpp.vid as vid
       FROM {fieldable_panels_panes} fpp
       INNER JOIN {panels_pane} pp
-        ON fpp.fpid = SUBSTRING_INDEX(pp.subtype, ':', -1)
+        ON fpp.fpid = SUBSTRING(pp.subtype FROM (POSITION(':' IN pp.subtype) + 1))
       INNER JOIN {panels_node} pn
         ON pn.did = pp.did
       WHERE (pp.subtype LIKE 'fpid:%' OR pp.subtype LIKE 'current:%')
@@ -664,7 +664,7 @@ function fieldable_panels_panes_update_7113() {
   $results = db_query_range("SELECT DISTINCT fpp.fpid as fpid, fpp.vid as vid
     FROM {fieldable_panels_panes} fpp
     INNER JOIN {panels_pane} pp
-      ON fpp.fpid = SUBSTRING_INDEX(pp.subtype, ':', -1)
+      ON fpp.fpid = SUBSTRING(pp.subtype FROM (POSITION(':' IN pp.subtype) + 1))
     INNER JOIN {panels_node} pn
       ON pn.did = pp.did
     WHERE (pp.subtype LIKE 'fpid:%' OR pp.subtype LIKE 'current:%')
