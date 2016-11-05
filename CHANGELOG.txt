@@ -18,6 +18,8 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2814117 by cboyden, lucas.constantino, dsnopek: Added
   hook_fieldable_panels_panes_access() to allow other modules to control access
   to Fieldable Panels Pane objects.
+#2801353 by ChaseOnTheWeb, DamienMcKenna: Duplicate logic of update_7112 and
+  update_7113 for when using UUID.
 
 
 Fieldable Panels Panes 7.x-1.10, 2016-05-04
