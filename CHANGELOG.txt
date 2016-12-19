@@ -1,5 +1,6 @@
 Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 ----------------------------------------------
+#2826182 by Arrow: Inversed logic for checking if the title should be used.
 
 
 Fieldable Panels Panes 7.x-1.11, 2016-11-05

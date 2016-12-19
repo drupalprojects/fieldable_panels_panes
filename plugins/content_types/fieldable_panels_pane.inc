@@ -188,7 +188,7 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_render($subty
       // Combine all of the above logic.
       if (empty($settings['extra_fields']['display'])
           || (!$is_view_mode_set && $show_default_title)
-          || !$show_view_mode_title) {
+          || $show_view_mode_title) {
         $block->title = filter_xss_admin($entity->title);
       }
     }
