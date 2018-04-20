@@ -11,8 +11,6 @@ By DamienMcKenna: Remove the CTools/Panels version requirenents.
   update.
 #2936307 by cboyden, DamienMcKenna: View functions handle langcode argument
   differently.
-#2916627 by Manuel Garcia: Add a composer.json file to document the
-  dependencies.
 
 
 Fieldable Panels Panes 7.x-1.11, 2016-11-05
