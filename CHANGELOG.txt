@@ -9,6 +9,8 @@ By DamienMcKenna: Remove the CTools/Panels version requirenents.
   kmonty, wylbur, langelhc, smaz, Manuel Garcia, dan.munn, Nitebreed, vkakani,
   Bram Esposito: Broken links for Fieldable Panels Panes in admin menu after
   update.
+#2936307 by cboyden, DamienMcKenna: View functions handle langcode argument
+  differently.
 
 
 Fieldable Panels Panes 7.x-1.11, 2016-11-05

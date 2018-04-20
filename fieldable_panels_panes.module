@@ -1143,7 +1143,8 @@ function fieldable_panels_panes_delete_multiple($fpids) {
  * @see node_view()
  */
 function fieldable_panels_panes_view($entity, $view_mode = 'full', $langcode = NULL) {
-  return entity_get_controller('fieldable_panels_pane')->view($entity, $view_mode, $langcode);
+  // Defer to the other function.
+  return fieldable_panels_pane_view($entity, $view_mode, $langcode);
 }
 
 /**
@@ -1154,7 +1155,7 @@ function fieldable_panels_panes_view($entity, $view_mode = 'full', $langcode = N
  *
  * @see entity_view()
  */
-function fieldable_panels_pane_view($entity, $view_mode = 'full', $langcode) {
+function fieldable_panels_pane_view($entity, $view_mode = 'full', $langcode = NULL) {
   return entity_get_controller('fieldable_panels_pane')->view($entity, $view_mode, $langcode);
 }
 
