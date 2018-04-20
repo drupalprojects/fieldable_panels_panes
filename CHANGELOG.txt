@@ -4,6 +4,11 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2825835 by Pol: Avoid errors with Panels when a FPP was deleted or otherwise
   doesn't exist.
 By DamienMcKenna: Remove the CTools/Panels version requirenents.
+#2826205 by DamienMcKenna, ron_s, Postovan Dumitru, wilei, dat deaf drupaler,
+  potassiumchloride, Rudi Teschner, Pol, Arrow, ec-adam, maxplus, arosboro,
+  kmonty, wylbur, langelhc, smaz, Manuel Garcia, dan.munn, Nitebreed, vkakani,
+  Bram Esposito: Broken links for Fieldable Panels Panes in admin menu after
+  update.
 
 
 Fieldable Panels Panes 7.x-1.11, 2016-11-05
