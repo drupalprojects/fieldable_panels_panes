@@ -3,6 +3,7 @@ Fieldable Panels Panes 7.x-1.x-dev, xxxx-xx-xx
 #2826182 by Arrow: Inversed logic for checking if the title should be used.
 #2825835 by Pol: Avoid errors with Panels when a FPP was deleted or otherwise
   doesn't exist.
+By DamienMcKenna: Remove the CTools/Panels version requirenents.
 
 
 Fieldable Panels Panes 7.x-1.11, 2016-11-05

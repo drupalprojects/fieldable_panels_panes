@@ -2,8 +2,8 @@ name = "Fieldable Panels Panes"
 description = "Allow the creation of fieldable panels pane entities."
 package = "Panels"
 core = "7.x"
-dependencies[] = ctools (>= 1.8)
-dependencies[] = panels (>= 3.5)
+dependencies[] = ctools
+dependencies[] = panels
 dependencies[] = views
 
 configure = admin/structure/fieldable-panels-panes
