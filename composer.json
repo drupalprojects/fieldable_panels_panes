@@ -1,0 +1,31 @@
+{
+  "name": "drupal/fieldable_panels_panes",
+  "description": "The Fieldable Panels Panes module allows the creation of fieldable panels pane entities.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/fieldable_panels_panes",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "See all contributors",
+      "homepage":"https://www.drupal.org/node/1312756/committers"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/fieldable_panels_panes",
+    "irc": "irc://irc.freenode.org/drupal-contribute",
+    "source": "https://git.drupal.org/project/fieldable_panels_panes.git"
+  },
+  "require": {
+    "drupal/ctools": ">= 7.x-1.8",
+    "drupal/panels": ">= 7.x-3.5",
+    "drupal/views": "7.*"
+  },
+  "require-dev": {
+    "drupal/devel": "7.*",
+    "drupal/entity": "7.*",
+    "drupal/panelizer": "7.*",
+    "drupal/pathauto": "7.*",
+    "drupal/revisioning": "7.*"
+  }
+}
