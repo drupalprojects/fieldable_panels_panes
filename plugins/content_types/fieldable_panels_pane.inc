@@ -32,9 +32,10 @@ function fieldable_panels_panes_fieldable_panels_pane_ctools_content_types() {
     // Form API callback.
     'edit form' => 'fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form',
     // Access callback.
-    'check editable' => 'fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form_access',
+    'check editable' => 'fieldable_panels_pane_content_type_edit_form_access',
   );
 }
+
 // --------------------------------------------------------------------------
 // Callbacks, many of them automatically named, for rendering content.
 
@@ -367,8 +368,12 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form_sub
 /**
  * Callback for the 'edit' permission.
  */
-function fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form_access($content_type, $subtype, $view_mode = 'full') {
-  return fieldable_panels_panes_check_access_update($subtype);
+function fieldable_panels_pane_content_type_edit_form_access($content_type, $subtype, $view_mode = 'full') {
+  $return = fieldable_panels_panes_check_access_update($subtype);
+
+  drupal_alter('fieldable_panels_pane_content_type_edit_form_access', $return, $content_type, $subtype, $view_mode);
+
+  return $return;
 }
 
 // --------------------------------------------------------------------------

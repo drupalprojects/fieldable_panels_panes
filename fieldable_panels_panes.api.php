@@ -131,5 +131,25 @@ function hook_fieldable_panels_panes_access($op, $entity = NULL, $account = NULL
 }
 
 /**
+ * Allow other modules to modify access to the Fieldable Panels Pane CTools content type.
+ *
+ * @param boolean $return
+ *   Value to determine if edit access is granted to FPP entity.
+ * @param array $content_type
+ *   The CTools content type plugin.
+ * @param array $subtype
+ *   The individual FPP entity being evaluated for edit access.
+ * @param array $view_mode
+ *   The view mode of the FPP entity being evaluated for edit access.
+ *
+ */
+function hook_fieldable_panels_pane_content_type_edit_form_access_alter(&$return, $content_type, $subtype, $view_mode) {
+  // For button and quote FPP bundles, deny edit access from Panels.
+  if ($subtype['bundle'] == 'button' || $subtype['bundle'] == 'quote') {
+    $return = FALSE;
+  }
+}
+
+/**
  * @} End of "addtogroup hooks".
  */

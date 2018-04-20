@@ -11,6 +11,8 @@ By DamienMcKenna: Remove the CTools/Panels version requirenents.
   update.
 #2936307 by cboyden, DamienMcKenna: View functions handle langcode argument
   differently.
+#2867561 by Chris Burge, DamienMcKenna: Allow CTools Content Type plugin access
+  to be altered.
 
 
 Fieldable Panels Panes 7.x-1.11, 2016-11-05
