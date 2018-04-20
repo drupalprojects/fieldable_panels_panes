@@ -151,5 +151,26 @@ function hook_fieldable_panels_pane_content_type_edit_form_access_alter(&$return
 }
 
 /**
+ * Allow other modules to modify the Fieldable Panels Pane CTools content type.
+ *
+ * @param array $content_type
+ *   The individual content type to be returned.
+ * @param string $subtype_id
+ *   The subtype id of the fieldable panel pane being altered for render.
+ * @param array $plugin
+ *   The CTools content type plugin.
+ *
+ */
+function hook_fieldable_panels_pane_content_type_alter(&$content_type, $subtype_id, $plugin) {
+  // For button FPP bundles, always show the latest revision.
+  if ($content_type['bundle'] == 'button' && substr( $subtype_id, 0, 4 ) === "vid:") {
+    $vid = substr($subtype_id, strpos($subtype_id, ":") + 1);
+    $fpid = db_query('SELECT f.fpid FROM {fieldable_panels_panes} f WHERE f.vid = :vid', array(':vid' => $vid))->fetchField();
+    $content_type['name'] = 'fpid:' . $fpid;
+    $content_type['entity_id'] = 'fpid:' . $fpid;
+  }
+}
+
+/**
  * @} End of "addtogroup hooks".
  */

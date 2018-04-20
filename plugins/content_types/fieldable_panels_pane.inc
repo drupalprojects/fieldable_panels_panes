@@ -77,6 +77,9 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type($subtype_id, 
     }
   }
 
+  // Trigger hook_fieldable_panels_pane_content_type_alter().
+  drupal_alter('fieldable_panels_pane_content_type', $content_type, $subtype_id, $plugin);
+
   return $content_type;
 }
 
@@ -371,6 +374,7 @@ function fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form_sub
 function fieldable_panels_pane_content_type_edit_form_access($content_type, $subtype, $view_mode = 'full') {
   $return = fieldable_panels_panes_check_access_update($subtype);
 
+  // Trigger hook_fieldable_panels_pane_content_type_edit_form_access_alter().
   drupal_alter('fieldable_panels_pane_content_type_edit_form_access', $return, $content_type, $subtype, $view_mode);
 
   return $return;

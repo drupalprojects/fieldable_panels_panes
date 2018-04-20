@@ -13,6 +13,7 @@ By DamienMcKenna: Remove the CTools/Panels version requirenents.
   differently.
 #2867561 by Chris Burge, DamienMcKenna: Allow CTools Content Type plugin access
   to be altered.
+#2865462 by Chris Burge, DamienMcKenna: Allow CTools content type to be altered.
 
 
 Fieldable Panels Panes 7.x-1.11, 2016-11-05
