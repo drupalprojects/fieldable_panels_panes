@@ -12,7 +12,7 @@ class fieldable_panels_panes_handler_field_edit_entity extends fieldable_panels_
    * Renders the link.
    */
   function render_link($entity, $values) {
-    if (fieldable_panels_panes_access('update', $entity)) {
+    if (fieldable_panels_panes_access('update', $entity) && (empty($this->options['hide_unless_reusable']) || !empty($entity->reusable))) {
       $this->options['alter']['make_link'] = TRUE;
       $this->options['alter']['path'] = "admin/structure/fieldable-panels-panes/view/$entity->fpid/edit";
       $this->options['alter']['query'] = drupal_get_destination();

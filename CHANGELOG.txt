@@ -14,6 +14,8 @@ By DamienMcKenna: Remove the CTools/Panels version requirenents.
 #2867561 by Chris Burge, DamienMcKenna: Allow CTools Content Type plugin access
   to be altered.
 #2865462 by Chris Burge, DamienMcKenna: Allow CTools content type to be altered.
+#2889278 by cboyden, dsnopek: On the Views link fields, allow hiding links if
+  the FPP is not reusable.
 
 
 Fieldable Panels Panes 7.x-1.11, 2016-11-05
