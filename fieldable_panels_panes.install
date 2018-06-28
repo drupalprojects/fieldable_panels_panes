@@ -335,49 +335,51 @@ function fieldable_panels_panes_update_7108() {
   ctools_include('export');
   $messages = array();
 
-  // Copied from fieldable_panels_panes_schema() because the schema should not
-  // be directly used during hook_update_N.
-  $schema['fieldable_panels_pane_type'] = array(
-    'description' => 'Entity bundle table for panel pane content.',
-    'fields' => array(
-      'name' => array(
-        'description' => 'The machine-readable name of this type.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-        'default' => '',
+  if (!db_table_exists('fieldable_panels_pane_type')) {
+    // Copied from fieldable_panels_panes_schema() because the schema should not
+    // be directly used during hook_update_N.
+    $schema['fieldable_panels_pane_type'] = array(
+      'description' => 'Entity bundle table for panel pane content.',
+      'fields' => array(
+        'name' => array(
+          'description' => 'The machine-readable name of this type.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        'title' => array(
+          'description' => 'The human-readable name of this type.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+          'translatable' => TRUE,
+        ),
+        'description' => array(
+          'description' => 'A brief description of this type.',
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => TRUE,
+        ),
       ),
-      'title' => array(
-        'description' => 'The human-readable name of this type.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-        'default' => '',
-        'translatable' => TRUE,
+      'export' => array(
+        'admin_title' => 'title',
+        'admin_description' => 'description',
+        'api' => array(
+          'owner' => 'fieldable_panels_panes',
+          'api' => 'fieldable_panels_pane_type',
+          'minimum_version' => 1,
+          'current_version' => 1,
+        ),
       ),
-      'description' => array(
-        'description' => 'A brief description of this type.',
-        'type' => 'text',
-        'size' => 'big',
-        'not null' => TRUE,
-      ),
-    ),
-    'export' => array(
-      'admin_title' => 'title',
-      'admin_description' => 'description',
-      'api' => array(
-        'owner' => 'fieldable_panels_panes',
-        'api' => 'fieldable_panels_pane_type',
-        'minimum_version' => 1,
-        'current_version' => 1,
-      ),
-    ),
-    'primary key' => array('name'),
-  );
+      'primary key' => array('name'),
+    );
 
 
-  // Add the new table for storing bundles.
-  db_create_table('fieldable_panels_pane_type', $schema['fieldable_panels_pane_type']);
+    // Add the new table for storing bundles.
+    db_create_table('fieldable_panels_pane_type', $schema['fieldable_panels_pane_type']);
+  }
 
   // Store possible existing bundles provided by other modules.
   $bundles = array();
